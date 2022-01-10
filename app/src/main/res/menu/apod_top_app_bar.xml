@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/save_img"
+        android:contentDescription="save images"
+        android:icon="@drawable/ic_baseline_save_white_24"
+        android:title="@string/menu_item_save"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/apod_calendar"
+        android:contentDescription="select dates"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/menu_item_calendar"
+        app:showAsAction="always" />
+
+</menu>

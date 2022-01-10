@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.spaceexplorer.model.MarsRoverPhoto" />
+
+        <import type="com.example.spaceexplorer.util.Resource" />
+
+        <import type="java.util.List" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="photoLiveData"
+            type="LiveData&lt;Resource&lt;MarsRoverPhoto>>" />
+
+        <variable
+            name="photo"
+            type="com.example.spaceexplorer.model.MarsRoverPhoto" />
+
+        <variable
+            name="retryCallback"
+            type="com.example.spaceexplorer.ui.common.RetryCallback" />
+
+        <variable
+            name="favouriteClickListener"
+            type="com.example.spaceexplorer.ui.common.ClickFavourite" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.RoverImageDetailFragment">
+
+        <include
+            android:id="@+id/mars_rover_detail_toolbar"
+            layout="@layout/rover_detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/feed_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:adjustViewBounds="true"
+            app:imageUrl="@{photo.image_href}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mars_rover_detail_toolbar"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <include
+            android:id="@+id/include3"
+            layout="@layout/loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:callback="@{() -> retryCallback.retry()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resource="@{(Resource) photoLiveData}" />
+
+        <ImageView
+            android:id="@+id/favourite_filled"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:onClick="@{() -> favouriteClickListener.clickUnfavouriteRover()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.024"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+            app:layout_constraintVertical_bias="0.666"
+            app:srcCompat="@drawable/ic_baseline_favorite_24"
+            app:visibleGone="@{photo.favourite}" />
+
+        <ImageView
+            android:id="@+id/favourite_border"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:onClick="@{() -> favouriteClickListener.clickFavouriteRover()}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.024"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+            app:layout_constraintVertical_bias="0.666"
+            app:srcCompat="@drawable/ic_baseline_favorite_border_24"
+            app:visibleGone="@{!photo.favourite}" />
+
+        <TextView
+            android:id="@+id/earth_date_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/mars_rover_detail_date_taken_static"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.026"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_item_image" />
+
+        <TextView
+            android:id="@+id/camera_textview_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/mars_rover_detail_camera_static"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/earth_date_static"
+            app:layout_constraintTop_toBottomOf="@+id/earth_date_static" />
+
+        <TextView
+            android:id="@+id/date_taken_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{photo.earth_date}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/earth_date_static"
+            app:layout_constraintStart_toEndOf="@+id/earth_date_static" />
+
+        <TextView
+            android:id="@+id/camera_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{photo.camera.name}"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/camera_textview_static"
+            app:layout_constraintStart_toEndOf="@+id/camera_textview_static" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="577dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

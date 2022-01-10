@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/calendar"
+        android:contentDescription="select dates"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/menu_item_calendar"
+        app:showAsAction="always" />
+
+</menu>

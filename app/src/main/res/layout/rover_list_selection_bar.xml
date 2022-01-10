@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="com.example.spaceexplorer.ui.common.ClickRoverListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <Button
+            android:id="@+id/button_curiosity"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{() -> clickListener.clickCuriosity()}"
+            android:text="@string/curiosity"
+            android:textSize="7dp"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_opportunity"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{() -> clickListener.clickOpportunity()}"
+            android:text="@string/opportunity"
+            android:textSize="7dp"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_spirit"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{() -> clickListener.clickSpirit()}"
+            android:text="@string/spirit"
+            android:textSize="7dp"
+            android:backgroundTint="@color/purple_500"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/button_opportunity"
+            app:layout_constraintStart_toEndOf="@+id/button_curiosity"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

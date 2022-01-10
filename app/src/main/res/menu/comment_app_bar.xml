@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_comment"
+        android:contentDescription="post comment"
+        android:icon="@drawable/ic_baseline_add_comment_24"
+        android:title="@string/menu_item_post_comment"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -1,0 +1,74 @@
+<resources>
+
+    <!-- app specific -->
+    <string name="app_name">Space Explorer</string>
+
+    <!-- symbols -->
+    <string name="pipe_symbol">|</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_register_short">Register</string>
+    <string name="action_proceed_short">Proceed Without Login</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="unknown_error">Unknown error</string>
+
+    <!-- toolbar titles -->
+    <string name="mars_rovers_toolbar_title">Mars Rovers</string>
+    <string name="favourite_toolbar_title">Favourites</string>
+    <string name="rover_detail_toolbar_title">Rover Image</string>
+    <string name="apod_toolbar_title">Picture of the day</string>
+    <string name="rovers_toolbar_title">Mars Rovers</string>
+    <string name="comment_toolbar_title">Comments</string>
+
+    <!-- navigation drawer -->
+    <string name="nav_header_title">Falah Zaidan</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_item_logout">log out</string>
+
+    <!-- toast messages -->
+    <string name="toast_saving_image">Saving Image…</string>
+    <string name="toast_saving_image_fail">failed</string>
+    <string name="toast_image_saved">Image Saved!</string>
+    <string name="toast_create_comment_excess_text">Please use less than 300 characters</string>
+    <string name="toast_invalid_credentials">invalid username or password</string>
+    <string name="toast_user_created">User created</string>
+    <string name="toast_invalid_user_creation">Invalid input, User was not created</string>
+    <string name="toast_empty_field">invalid, empty field</string>
+    <string name="toast_invalid">invalid</string>
+
+    <!-- date picker -->
+    <string name="date_picker_show">tag</string>
+
+    <!-- text for buttons -->
+    <string name="comment_submit_btn_text">Submit</string>
+    <string name="register_fragment_register_btn_text">Register</string>
+    <string name="retry_btn">Retry</string>
+
+    <!-- rover names -->
+    <string name="spirit">Spirit</string>
+    <string name="opportunity">Opportunity</string>
+    <string name="curiosity">Curiosity</string>
+
+    <!-- rover detail -->
+    <string name="mars_rover_detail_date_taken_static">Date taken:</string>
+    <string name="mars_rover_detail_camera_static">Camera:</string>
+
+    <!-- menu items -->
+
+    <!-- ** bottom menu ** -->
+    <string name="menu_item_favourites">Favourites</string>
+    <string name="menu_item_rovers">Rovers</string>
+    <string name="menu_item_apod">Day picture</string>
+
+    <!-- ** top menus ** -->
+    <string name="menu_item_save">Save</string>
+    <string name="menu_item_calendar">Calendar</string>
+    <string name="menu_item_post_comment">Post</string>
+
+</resources>

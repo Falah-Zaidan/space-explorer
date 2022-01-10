@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="commentClickListener"
+            type="com.example.spaceexplorer.ui.common.CommentClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.CreateCommentFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/comment_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Comment"
+            app:counterEnabled="true"
+            app:counterMaxLength="300"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/postdescriptioninput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:lines="5"
+                app:layout_constraintTop_toBottomOf="@+id/textField2"
+                tools:layout_editor_absoluteX="11dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/submit_comment_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/comment_submit_btn_text"
+            android:onClick="@{() -> commentClickListener.submitComment()}"
+            app:layout_constraintEnd_toEndOf="@+id/comment_input"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/comment_input"
+            app:layout_constraintTop_toBottomOf="@+id/comment_input" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

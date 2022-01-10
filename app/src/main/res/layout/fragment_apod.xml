@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.spaceexplorer.cache.model.APOD" />
+
+        <import type="com.example.spaceexplorer.util.Resource" />
+
+        <import type="java.util.List" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="apodPhotoLiveData"
+            type="LiveData&lt;Resource&lt;APOD>>" />
+
+        <variable
+            name="favourite"
+            type="boolean" />
+
+        <variable
+            name="apodPhoto"
+            type="com.example.spaceexplorer.cache.model.APOD" />
+
+        <variable
+            name="retryCallback"
+            type="com.example.spaceexplorer.ui.common.RetryCallback" />
+
+        <variable
+            name="favouriteClickListener"
+            type="com.example.spaceexplorer.ui.common.ClickFavourite" />
+
+        <variable
+            name="clickListener"
+            type="com.example.spaceexplorer.ui.common.ClickButtonListener" />
+
+        <variable
+            name="commentClickListener"
+            type="com.example.spaceexplorer.ui.common.ClickCommentListener" />
+
+        <variable
+            name="navigateClickListener"
+            type="com.example.spaceexplorer.ui.common.NavigateClickListener" />
+
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <!-- 550dp height (scrollview and constraintLayout) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:context=".ui.RoverImageDetailFragment">
+
+                    <include
+                        android:id="@+id/apod_toolbar"
+                        layout="@layout/apod_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/feed_item_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        app:imageUrl="@{apodPhoto.hdURL}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/apod_toolbar"
+                        app:srcCompat="@drawable/ic_launcher_background" />
+
+                    <ImageView
+                        android:id="@+id/nextAPOD"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> navigateClickListener.clickForward()}"
+                        android:src="@drawable/ic_baseline_arrow_forward_maroon_36"
+                        android:text=""
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.975"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/apod_toolbar"
+                        app:srcCompat="@drawable/ic_baseline_arrow_forward_maroon_36" />
+
+                    <ImageView
+                        android:id="@+id/previousAPOD"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> navigateClickListener.clickBackward()}"
+                        android:src="@drawable/ic_baseline_arrow_back_maroon_36"
+                        android:text=""
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.027"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/apod_toolbar"
+                        app:srcCompat="@drawable/ic_baseline_arrow_back_maroon_36"
+                        tools:srcCompat="@drawable/ic_baseline_arrow_back_maroon_36" />
+
+                    <ImageView
+                        android:id="@+id/favourite_filled"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:onClick="@{() -> favouriteClickListener.clickUnfavouriteAPOD()}"
+                        app:layout_constraintBottom_toTopOf="@+id/image_description"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.024"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/ic_baseline_favorite_24"
+                        app:visibleGone="@{apodPhoto.favourite}" />
+
+                    <ImageView
+                        android:id="@+id/favourite_border"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:onClick="@{() -> favouriteClickListener.clickFavouriteAPOD()}"
+                        app:layout_constraintBottom_toTopOf="@+id/image_description"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.024"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/ic_baseline_favorite_border_24"
+                        app:visibleGone="@{!apodPhoto.favourite}" />
+
+                    <ImageView
+                        android:id="@+id/comment_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:onClick="@{() -> commentClickListener.clickedCommentScreen()}"
+                        app:layout_constraintBottom_toTopOf="@+id/image_description"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.132"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:srcCompat="@drawable/ic_baseline_comment_24" />
+
+                    <include
+                        android:id="@+id/include"
+                        layout="@layout/loading_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:callback="@{() -> retryCallback.retry()}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:resource="@{(Resource) apodPhotoLiveData}" />
+
+                    <TextView
+                        android:id="@+id/image_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="@{apodPhoto.explanation}"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btn_baseline"
+                        app:layout_constraintVertical_bias="0" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/btn_baseline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="504dp" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/screen_limit_guideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="673dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <com.google.android.material.navigation.NavigationView-->
+<!--            android:id="@+id/navigation_view_fragment_mars_rover_photos"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="start"-->
+<!--            app:headerLayout="@layout/nav_header_main"-->
+<!--            app:menu="@menu/activity_main_drawer" />-->
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

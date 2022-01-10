@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.spaceexplorer.cache.model.MarsRoverPhotoWithComments" />
+
+        <import type="com.example.spaceexplorer.cache.model.Comment" />
+
+        <import type="com.example.spaceexplorer.cache.model.APODWithComments" />
+
+        <import type="com.example.spaceexplorer.util.Resource" />
+
+        <import type="java.util.List" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable
+            name="comments"
+            type="LiveData&lt;Resource&lt;List&lt;Comment>>>" />
+
+        <variable
+            name="apodWithComments"
+            type="LiveData&lt;Resource&lt;APODWithComments>>" />
+
+        <variable
+            name="retryCallback"
+            type="com.example.spaceexplorer.ui.common.RetryCallback" />
+
+        <variable
+            name="commentClickListener"
+            type="com.example.spaceexplorer.ui.common.CommentClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/comment_toolbar"
+            layout="@layout/comments_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:callback="@{() -> retryCallback.retry()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resource="@{(Resource) apodWithComments}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comment_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comment_toolbar"
+            tools:listitem="@layout/comment_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

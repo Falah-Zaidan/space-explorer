@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.spaceexplorer.ui.RoverImageFragment"
+        android:label="ListFragment" >
+        <action
+            android:id="@+id/action_listFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_apodFragment"
+            app:destination="@id/apodFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.spaceexplorer.ui.RoverImageDetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="item_key"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_detailFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/apodFragment"
+        android:name="com.example.spaceexplorer.ui.ApodFragment"
+        android:label="ApodFragment" >
+        <action
+            android:id="@+id/action_apodFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+        <argument
+            android:name="apodDate"
+            app:argType="string"
+            android:defaultValue="void" />
+        <action
+            android:id="@+id/action_apodFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.spaceexplorer.ui.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.example.spaceexplorer.ui.CommentFragment"
+        android:label="fragment_comment"
+        tools:layout="@layout/fragment_comment" >
+        <action
+            android:id="@+id/action_commentFragment_to_createCommentFragment"
+            app:destination="@id/createCommentFragment" />
+        <argument
+            android:name="apodId"
+            app:argType="long" />
+        <argument
+            android:name="marsRoverPhotoId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_commentFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_apodFragment"
+            app:destination="@id/apodFragment" />
+        <argument
+            android:name="apodDate"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCommentFragment"
+        android:name="com.example.spaceexplorer.ui.CreateCommentFragment"
+        android:label="CreateCommentFragment" >
+        <action
+            android:id="@+id/action_createCommentFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+        <argument
+            android:name="apodId"
+            app:argType="long" />
+        <argument
+            android:name="marsRoverPhotoId"
+            app:argType="long" />
+        <argument
+            android:name="apodDate"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.spaceexplorer.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_apodFragment"
+            app:destination="@id/apodFragment"
+            app:popUpTo="@id/apodFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.spaceexplorer.ui.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+</navigation>
