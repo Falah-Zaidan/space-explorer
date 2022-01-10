@@ -1,7 +1,3 @@
-# london-hackspace-android
-
-Welcome. This is repository is a project to create and publish an Android app for London Hackspace. 
-
 Languages, libraries and tools:
 <ul>
 <li>Kotlin</li>
@@ -14,4 +10,15 @@ Languages, libraries and tools:
 <li>Espresso</li>
 </ul>
 
-Discord: https://discord.gg/T8ymcJMxcE
+<p><strong><u>Architecture:</u></strong></p>
+<p>MVVM Architecture based on Google guide to App architecture.</p>
+
+<p>
+  <img src="images/1.png" width="200dp"/>
+  <img src="images/2.png" width="200dp"/>
+  <img src="images/3.png" width="200dp"/>
+  <img src="images/4.png" width="200dp"/>
+  <img src="images/5.png" width="200dp"/>
+  <img src="images/6.png" width="200dp"/>
+  <img src="images/7.png" width="200dp"/>
+ </p>
