@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.spaceexplorer.R
@@ -42,7 +44,10 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.apod_toolbar.*
 import kotlinx.android.synthetic.main.fragment_apod.*
+import kotlinx.android.synthetic.main.fragment_apod.drawerLayout
+import kotlinx.android.synthetic.main.fragment_rover_list.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import kotlinx.android.synthetic.main.rover_list_toolbar.*
 import java.util.*
 import javax.inject.Inject
 
@@ -96,6 +101,7 @@ class ApodFragment : Fragment(), Injectable {
         initDatePicker()
 
         observeAPODLiveData()
+        setupDrawerProfilePicture()
 
     }
 
@@ -148,6 +154,25 @@ class ApodFragment : Fragment(), Injectable {
             }
         })
 
+    }
+
+    private fun setupDrawerProfilePicture() {
+        val headerLayout = navigation_view_fragment_apod.getHeaderView(0)
+
+        val requestOptions = RequestOptions
+            .placeholderOf(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
+
+        val username = Constants.getCurrentLoggedInUsername()
+        val profilePicture = Constants.getCurrentLoggedinProfilePicture()
+
+        if (headerLayout != null) {
+            headerLayout.user_name.text = username
+
+            Glide.with(this)
+                .setDefaultRequestOptions(requestOptions)
+                .load(profilePicture).into(headerLayout.profile_picture)
+        }
     }
 
     private fun setCurrentApod(apod: APOD) {
@@ -228,6 +253,27 @@ class ApodFragment : Fragment(), Injectable {
 
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        apod_top_app_bar.setNavigationOnClickListener {
+            drawerLayout.openDrawer(Gravity.LEFT)
+        }
+
+        navigation_view_fragment_apod.setNavigationItemSelectedListener { menuItem ->
+            // Handle menu item selected
+            menuItem.isChecked = true
+            drawerLayout.closeDrawer(Gravity.LEFT)
+            if (menuItem.itemId == R.id.logout) {
+                //navigate back to loginFragment
+                findNavController().navigate(
+                    ApodFragmentDirections.actionApodFragmentToLoginFragment()
+                )
+            }
+            true
+        }
+    }
+
     private fun areItemsTheSame(apod: APOD, currentAPODValue: APOD?): Boolean {
 
         if (currentAPODValue != null) {
@@ -268,7 +314,7 @@ class ApodFragment : Fragment(), Injectable {
 
     private fun initialiseTopAppBar() {
         apod_top_app_bar.setNavigationOnClickListener {
-            // Handle navigation icon press
+            drawerLayout.openDrawer(Gravity.LEFT)
         }
 
         apod_top_app_bar.setOnMenuItemClickListener { menuItem ->
@@ -368,5 +414,4 @@ class ApodFragment : Fragment(), Injectable {
         return true
     }
 
-    //
 }

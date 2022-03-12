@@ -216,16 +216,15 @@
 
             </ScrollView>
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--        <com.google.android.material.navigation.NavigationView-->
-<!--            android:id="@+id/navigation_view_fragment_mars_rover_photos"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_gravity="start"-->
-<!--            app:headerLayout="@layout/nav_header_main"-->
-<!--            app:menu="@menu/activity_main_drawer" />-->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view_fragment_apod"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header_main"
+            app:menu="@menu/activity_main_drawer" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

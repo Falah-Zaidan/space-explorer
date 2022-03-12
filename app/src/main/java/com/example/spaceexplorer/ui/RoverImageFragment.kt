@@ -90,6 +90,7 @@ class RoverImageFragment : Fragment(), Injectable {
         initialiseTopAppBar()
         initDatePicker()
         observeLiveData()
+        setupDrawerProfilePicture()
 
     }
 
@@ -229,7 +230,9 @@ class RoverImageFragment : Fragment(), Injectable {
         listViewModel.spiritPhotos.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it.data)
         })
+    }
 
+    private fun setupDrawerProfilePicture() {
         val headerLayout = navigation_view_fragment_rover_list_photos.getHeaderView(0)
 
         val requestOptions = RequestOptions
@@ -246,11 +249,11 @@ class RoverImageFragment : Fragment(), Injectable {
                 .setDefaultRequestOptions(requestOptions)
                 .load(profilePicture).into(headerLayout.profile_picture)
         }
-
     }
 
     private fun initialiseTopAppBar() {
         rover_list_top_app_bar.setNavigationOnClickListener {
+
         }
 
         rover_list_top_app_bar.setOnMenuItemClickListener { menuItem ->
