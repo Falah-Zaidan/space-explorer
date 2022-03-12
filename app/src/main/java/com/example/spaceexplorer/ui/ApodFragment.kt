@@ -368,4 +368,5 @@ class ApodFragment : Fragment(), Injectable {
         return true
     }
 
+    //
 }
