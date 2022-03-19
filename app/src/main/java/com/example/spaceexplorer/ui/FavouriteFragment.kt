@@ -21,6 +21,7 @@ import com.example.spaceexplorer.binding.FragmentDataBindingComponent
 import com.example.spaceexplorer.cache.model.APOD
 import com.example.spaceexplorer.databinding.FragmentFavouriteBinding
 import com.example.spaceexplorer.di.util.Injectable
+import com.example.spaceexplorer.model.Favourite
 import com.example.spaceexplorer.model.MarsRoverPhoto
 import com.example.spaceexplorer.ui.common.RetryCallback
 import com.example.spaceexplorer.util.Constants
@@ -107,43 +108,58 @@ class FavouriteFragment : Fragment(), Injectable {
     private fun setUpList() {
         mAdapter = FavouritesAdapter(
             appExecutors,
-            dataBindingComponent
-        ) { favouritePhoto ->
+            dataBindingComponent,
+            remove_item_listener =
+            { favouritePhoto: Favourite ->
+                favouriteViewModel.deleteFavourite(favouritePhoto.photo_id)
 
-            favouriteViewModel.deleteFavourite(favouritePhoto.photo_id)
+                //insert the new MarsRoverPhoto through the favouriteViewModel (with the 'favourite' flag set to false)
+                //this should overwrite the older (obsolete) one
+                if (!favouritePhoto.rover_name.equals("abc")) {
+                    val newMarsRoverPhoto = MarsRoverPhoto(
+                        favouritePhoto.photo_id,
+                        favouritePhoto.photo_url,
+                        favouritePhoto.earth_date,
+                        MarsRoverPhoto.Rover(
+                            favouritePhoto.rover_name
+                        ),
+                        MarsRoverPhoto.Camera(
+                            favouritePhoto.camera_name
+                        )
+                    )
+                    newMarsRoverPhoto.favourite = false
 
-            //insert the new MarsRoverPhoto through the favouriteViewModel (with the 'favourite' flag set to false)
-            //this should overwrite the older (obsolete) one
-            if (!favouritePhoto.rover_name.equals("abc")) {
-                val newMarsRoverPhoto = MarsRoverPhoto(
-                    favouritePhoto.photo_id,
-                    favouritePhoto.photo_url,
-                    favouritePhoto.earth_date,
-                    MarsRoverPhoto.Rover(
-                        favouritePhoto.rover_name
-                    ),
-                    MarsRoverPhoto.Camera(
-                        favouritePhoto.camera_name
+                    favouriteViewModel.insertMarsRoverPhoto(newMarsRoverPhoto)
+                } else {
+                    val newAPODPhoto = APOD(
+                        favouritePhoto.photo_id,
+                        favouritePhoto.earth_date,
+                        favouritePhoto.explanation,
+                        favouritePhoto.photo_url
+                    )
+
+                    newAPODPhoto.favourite = false
+
+                    favouriteViewModel.insertAPOD(
+                        newAPODPhoto
+                    )
+                }
+            },
+            image_clicked_listener =
+            { favouritePhoto: Favourite ->
+                findNavController().navigate(
+                    //Favourite -> DetailFragment
+//                    FavouriteFragmentDirections.actionFavouriteFragmentToDetailFragment(
+//                        favouritePhoto.photo_id
+//                    )
+                    //Favourite -> APODFragment
+                    FavouriteFragmentDirections.actionFavouriteFragmentToApodFragment(
+                        favouritePhoto.earth_date
                     )
                 )
-                newMarsRoverPhoto.favourite = false
-
-                favouriteViewModel.insertMarsRoverPhoto(newMarsRoverPhoto)
-            } else {
-                val newAPODPhoto = APOD(
-                    favouritePhoto.photo_id,
-                    favouritePhoto.earth_date,
-                    favouritePhoto.explanation,
-                    favouritePhoto.photo_url
-                )
-
-                newAPODPhoto.favourite = false
-
-                favouriteViewModel.insertAPOD(
-                    newAPODPhoto
-                )
-            }
-        }
+                //do something with the id of the favouritePhoto that the user has clicked
+                //Navigate to the particular APODFragment or MarsRoverDetail Fragment with the arguments provided
+            })
 
         binding.favouriteList.adapter = mAdapter
     }

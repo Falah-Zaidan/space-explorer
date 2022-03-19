@@ -55,6 +55,12 @@
         <action
             android:id="@+id/action_favouriteFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_apodFragment"
+            app:destination="@id/apodFragment" />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"

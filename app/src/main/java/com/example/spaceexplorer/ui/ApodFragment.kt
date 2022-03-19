@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
@@ -68,6 +70,7 @@ class ApodFragment : Fragment(), Injectable {
     var databindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     var binding by autoCleared<FragmentApodBinding>()
+    private val args: ApodFragmentArgs by navArgs()
 
     //NOTE: can't really call string resouces from a static context - you always need context - otherwise it will crash app...
 
@@ -122,7 +125,19 @@ class ApodFragment : Fragment(), Injectable {
 
     private fun initDataBindingLayout() {
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.apodPhotoLiveData = listViewModel.apod
+
+        //2 cases:
+            //User first enters the app - should show the latest date
+                //Can be done in the ViewModel (setting a static date)
+            //User navigates from 'Favourite' item - should show the picture from that particular date
+                //Can be done alongside the above if we check for navArgs - if they are empty then we go for the default (ViewModel) value
+        val query_key = args.apodDate
+        if (query_key != "") {
+            listViewModel.setApodDate(query_key)
+            binding.apodPhotoLiveData = listViewModel.apod
+        } else {
+            binding.apodPhotoLiveData = listViewModel.apod
+        }
 
         binding.retryCallback = object : RetryCallback {
             override fun retry() {
@@ -134,13 +149,17 @@ class ApodFragment : Fragment(), Injectable {
 
     private fun observeAPODLiveData() {
 
-        var currentDate = convertToDate(Calendar.getInstance().time.time)
-        listViewModel.setApodDate(currentDate)
+        val dateArg = args.apodDate
+        Log.d("dateArg", dateArg)
 
-        listViewModel.getCurrentAPOD()
-        listViewModel.currentAPODLiveData.observe(viewLifecycleOwner, Observer {
-            listViewModel.setApodDate(it.data?.date)
-        })
+        if (args.apodDate == "") {
+            var currentDate = convertToDate(Calendar.getInstance().time.time)
+            listViewModel.setApodDate(currentDate)
+            listViewModel.getCurrentAPOD()
+            listViewModel.currentAPODLiveData.observe(viewLifecycleOwner, Observer {
+                listViewModel.setApodDate(it.data?.date)
+            })
+        }
 
         listViewModel.apod.observe(viewLifecycleOwner, Observer {
             //if items are the same, don't update the UI - since there is nothing to update - and will just make the screen flicker

@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/apod_toolbar.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/favourite_list_item.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_apod.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/fragment_favourite.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/fragment_rover_detail.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_rover_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/rover_list_toolbar.xml" value="0.196875" />
       </map>

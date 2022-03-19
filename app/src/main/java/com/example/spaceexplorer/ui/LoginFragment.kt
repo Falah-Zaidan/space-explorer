@@ -127,7 +127,7 @@ class LoginFragment : Fragment(), Injectable {
                     //proceed the app (the user is authenticated - and his value is stored in the DB)
                     // pass in an empty value to APODFragment
                     findNavController().navigate(
-                        LoginFragmentDirections.actionLoginFragmentToApodFragment()
+                        LoginFragmentDirections.actionLoginFragmentToApodFragment("")
                     )
                 } else {
                     //display an error message/toast

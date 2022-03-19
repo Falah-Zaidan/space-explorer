@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.favourite_list_item.view.*
 class FavouritesAdapter constructor(
     appExecutors: AppExecutors,
     private val dataBindingComponent: DataBindingComponent,
-    private val listener: (Favourite) -> Unit
+    private val remove_item_listener: (Favourite) -> Unit,
+    private val image_clicked_listener: (Favourite) -> Unit
 ) : DataBoundListAdapter<Favourite, FavouriteListItemBinding>(appExecutors = appExecutors,
     diffCallback = object : DiffUtil.ItemCallback<Favourite>() {
         override fun areItemsTheSame(oldItem: Favourite, newItem: Favourite): Boolean {
@@ -36,9 +37,19 @@ class FavouritesAdapter constructor(
                 dataBindingComponent
             )
 
+        //click listener to remove photos
+        //click listener is set on the remove_icon (and not the whole view)
         binding.root.remove_icon.setOnClickListener {
             binding.photo?.let {
-                listener.invoke(it)
+                remove_item_listener.invoke(it)
+            }
+        }
+
+        //click listener to view the photos/be redirected to the post
+        //the click listener is set on the image (and not the whole view i.e. 'root')*
+        binding.root.item_image.setOnClickListener{
+            binding.photo?.let {
+                image_clicked_listener.invoke(it)
             }
         }
 
