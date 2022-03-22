@@ -131,8 +131,9 @@ class ApodFragment : Fragment(), Injectable {
                 //Can be done in the ViewModel (setting a static date)
             //User navigates from 'Favourite' item - should show the picture from that particular date
                 //Can be done alongside the above if we check for navArgs - if they are empty then we go for the default (ViewModel) value
+                //We also need to save that value to the Database (since it is now the currentAPOD)
         val query_key = args.apodDate
-        if (query_key != "") {
+        if (query_key != "" && query_key != "void") {
             listViewModel.setApodDate(query_key)
             binding.apodPhotoLiveData = listViewModel.apod
         } else {
@@ -152,9 +153,9 @@ class ApodFragment : Fragment(), Injectable {
         val dateArg = args.apodDate
         Log.d("dateArg", dateArg)
 
-        if (args.apodDate == "") {
-            var currentDate = convertToDate(Calendar.getInstance().time.time)
-            listViewModel.setApodDate(currentDate)
+        if (args.apodDate == "" || args.apodDate == "void") {
+//            var currentDate = convertToDate(Calendar.getInstance().time.time)
+//            listViewModel.setApodDate(currentDate)
             listViewModel.getCurrentAPOD()
             listViewModel.currentAPODLiveData.observe(viewLifecycleOwner, Observer {
                 listViewModel.setApodDate(it.data?.date)
@@ -167,6 +168,9 @@ class ApodFragment : Fragment(), Injectable {
                 if (!areItemsTheSame(it.data, currentAPOD)) {
                     binding.apodPhoto = it.data
                     setCurrentApod(it.data)
+                    listViewModel.setCurrentAPOD(CurrentAPOD(
+                        it.data.date
+                    ))
                 } else {
                     binding.apodPhoto = currentAPOD
                 }
