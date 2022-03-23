@@ -148,14 +148,22 @@ class FavouriteFragment : Fragment(), Injectable {
             image_clicked_listener =
             { favouritePhoto: Favourite ->
                 findNavController().navigate(
+
+                    if (favouritePhoto.rover_name == "abc") {
+                        FavouriteFragmentDirections.actionFavouriteFragmentToApodFragment(
+                            favouritePhoto.earth_date
+                        )
+                    } else {
+                        FavouriteFragmentDirections.actionFavouriteFragmentToDetailFragment(
+                            favouritePhoto.photo_id
+                        )
+                    }
                     //Favourite -> DetailFragment
-//                    FavouriteFragmentDirections.actionFavouriteFragmentToDetailFragment(
-//                        favouritePhoto.photo_id
-//                    )
+
                     //Favourite -> APODFragment
-                    FavouriteFragmentDirections.actionFavouriteFragmentToApodFragment(
-                        favouritePhoto.earth_date
-                    )
+//                    FavouriteFragmentDirections.actionFavouriteFragmentToApodFragment(
+//                        favouritePhoto.earth_date
+//                    )
                 )
                 //do something with the id of the favouritePhoto that the user has clicked
                 //Navigate to the particular APODFragment or MarsRoverDetail Fragment with the arguments provided
