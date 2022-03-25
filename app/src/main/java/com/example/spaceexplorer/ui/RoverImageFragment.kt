@@ -227,6 +227,11 @@ class RoverImageFragment : Fragment(), Injectable {
     }
 
     private fun observeLiveData() {
+
+        //you want to observe the last picked Rover here...
+
+
+
         listViewModel.spiritPhotos.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it.data)
         })

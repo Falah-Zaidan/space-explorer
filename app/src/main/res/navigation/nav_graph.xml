@@ -125,4 +125,16 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/spiritRoverFragment"
+        android:name="com.example.spaceexplorer.ui.SpiritRoverFragment"
+        android:label="SpiritRoverFragment" />
+    <fragment
+        android:id="@+id/opportunityRoverFragment"
+        android:name="com.example.spaceexplorer.ui.OpportunityRoverFragment"
+        android:label="OpportunityRoverFragment" />
+    <fragment
+        android:id="@+id/curiosityRoverFragment"
+        android:name="com.example.spaceexplorer.ui.CuriosityRoverFragment"
+        android:label="CuriosityRoverFragment" />
 </navigation>

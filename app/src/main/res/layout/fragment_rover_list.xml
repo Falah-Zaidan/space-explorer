@@ -58,7 +58,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStar4300tOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rover_toolbar"
                 app:layout_constraintVertical_bias="0.0" />
 
@@ -116,13 +116,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_view_fragment_rover_list_photos"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer" />
+        <!--        <com.google.android.material.navigation.NavigationView-->
+        <!--            android:id="@+id/navigation_view_fragment_rover_list_photos"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_gravity="start"-->
+        <!--            app:headerLayout="@layout/nav_header_main"-->
+        <!--            app:menu="@menu/activity_main_drawer" />-->
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

@@ -31,5 +31,14 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeRegisterFragment(): RegisterFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeSpiritFragment(): SpiritRoverFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeOpportunityFragment(): Opp
+
+    @ContributesAndroidInjector
+    abstract fun contributeCuriosityFragment(): CuriosityRoverFragment
 }
 
