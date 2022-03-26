@@ -28,56 +28,51 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 
-//@RunWith(AndroidJUnit4::class)
-//class RoverImageFragmentTest {
-//
-//    private val navController = mock<NavController>()
-//    private lateinit var listViewModel: ListViewModel
-//
-//    //We use 3 separate streams in the Fragment - so we do the same here...
-//    private var curiosityListLiveData = MutableLiveData<Resource<List<MarsRoverPhoto>>>()
-//    private var opportunityListLiveData = MutableLiveData<Resource<List<MarsRoverPhoto>>>()
-//    private var spiritListLiveData = MutableLiveData<Resource<List<MarsRoverPhoto>>>()
-//    private val loadMoreStatus = MutableLiveData<ListViewModel.LoadMoreState>()
-//
-//    @Rule
-//    @JvmField
-//    val executorRule = TaskExecutorWithIdlingResourceRule()
-//
-//    @Rule
-//    @JvmField
-//    val countingAppExecutors = CountingAppExecutorsRule()
-//
-//    @Rule
-//    @JvmField
-//    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule()
-//    private lateinit var mockBindingAdapter: FragmentBindingAdapters
-//
-//    @Before
-//    fun init() {
-//        mockBindingAdapter = mock()
-//        listViewModel = mock()
-//
-//        whenever(listViewModel.curiosityPhotos).thenReturn(curiosityListLiveData)
-//        whenever(listViewModel.spiritPhotos).thenReturn(spiritListLiveData)
-//        whenever(listViewModel.opportunityPhotos).thenReturn(opportunityListLiveData)
-//        whenever(listViewModel.getLoadMoreStatus()).thenReturn(loadMoreStatus)
-//
-//        val mViewModelFactoryProvider = ViewModelUtil.createFor(listViewModel)
-//
-//        val scenario = launchFragmentInContainer(null, R.style.AppTheme) {
-//            RoverImageFragment().apply {
-//                viewModelProviderFactory = mViewModelFactoryProvider
-//                appExecutors = countingAppExecutors.appExecutors
-//            }
-//        }
-//
-//        dataBindingIdlingResourceRule.monitorFragment(scenario)
-//        scenario.onFragment { fragment ->
-//            Navigation.setViewNavController(fragment.requireView(), navController)
-//        }
-//    }
-//
+@RunWith(AndroidJUnit4::class)
+class SpiritFragmentTest {
+
+    private val navController = mock<NavController>()
+    private lateinit var listViewModel: ListViewModel
+
+    private var spiritListLiveData = MutableLiveData<Resource<List<MarsRoverPhoto>>>()
+    private val loadMoreStatus = MutableLiveData<ListViewModel.LoadMoreState>()
+
+    @Rule
+    @JvmField
+    val executorRule = TaskExecutorWithIdlingResourceRule()
+
+    @Rule
+    @JvmField
+    val countingAppExecutors = CountingAppExecutorsRule()
+
+    @Rule
+    @JvmField
+    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule()
+    private lateinit var mockBindingAdapter: FragmentBindingAdapters
+
+    @Before
+    fun init() {
+        mockBindingAdapter = mock()
+        listViewModel = mock()
+
+        whenever(listViewModel.spiritPhotos).thenReturn(spiritListLiveData)
+        whenever(listViewModel.getLoadMoreStatus()).thenReturn(loadMoreStatus)
+
+        val mViewModelFactoryProvider = ViewModelUtil.createFor(listViewModel)
+
+        val scenario = launchFragmentInContainer(null, R.style.AppTheme) {
+            SpiritRoverFragment().apply {
+                viewModelProviderFactory = mViewModelFactoryProvider
+                appExecutors = countingAppExecutors.appExecutors
+            }
+        }
+
+        dataBindingIdlingResourceRule.monitorFragment(scenario)
+        scenario.onFragment { fragment ->
+            Navigation.setViewNavController(fragment.requireView(), navController)
+        }
+    }
+
 //    @Test
 //    fun initialLoading() {
 //        spiritListLiveData.postValue(Resource.loading(null))
@@ -86,7 +81,13 @@ import org.mockito.Mockito
 //        onView(withId(R.id.retry))
 //            .check(matches(not(isDisplayed())))
 //    }
-//
+
+    @Test
+    fun clickOtherRover() {
+        onView(withId(R.id.button_curiosity)).perform(click())
+        verify(navController).navigate(SpiritRoverFragmentDirections.actionSpiritRoverFragmentToCuriosityRoverFragment())
+    }
+
 //    @Test
 //    fun filterRover() {
 //
@@ -95,7 +96,7 @@ import org.mockito.Mockito
 //
 //        //check success for Rover A (Curiosity)
 //        onView(withId(R.id.button_curiosity)).perform(click())
-//        curiosityListLiveData.postValue(Resource.success(curiosityPhotoList))
+//        spiritListLiveData.postValue(Resource.success(curiosityPhotoList))
 //        onView(listMatcher().atPosition(0))
 //            .check(matches(hasDescendant(withText(curiosityPhoto.camera.name))))
 //        onView(withId(R.id.progress_bar))
@@ -123,7 +124,7 @@ import org.mockito.Mockito
 //        Mockito.verify(listViewModel).loadNextPage("Opportunity")
 //
 //    }
-//
+
 //    @Test
 //    fun error() {
 ////        doNothing().`when`(listViewModel).retry()
@@ -137,7 +138,7 @@ import org.mockito.Mockito
 //        onView(withId(R.id.retry)).perform(click())
 //        verify(listViewModel).retry()
 //    }
-//
+
 //    @Test
 //    fun loadingWithSimpleItems() {
 //        val photoList = DataFactory.makePhotoList(10) //make a photo list
@@ -150,7 +151,7 @@ import org.mockito.Mockito
 //        onView(withId(R.id.progress_bar))
 //            .check(matches(not(isDisplayed())))
 //    }
-//
+
 //    @Test
 //    fun loadedSimpleItems() {
 //        val photoList = DataFactory.makePhotoList(10) //make a photo list
@@ -162,8 +163,8 @@ import org.mockito.Mockito
 //        onView(withId(R.id.progress_bar))
 //            .check(matches(not(isDisplayed())))
 //    }
-//
-//    //initial value (default) will be Spirit...
+
+    //initial value (default) will be Spirit...
 //    @Test
 //    fun initialLoadMore() {
 ////        doNothing().`when`(listViewModel.loadNextPage())
@@ -177,7 +178,7 @@ import org.mockito.Mockito
 //        //verify that the nextPage for the right rover is queried...
 //        Mockito.verify(listViewModel).loadNextPage("Spirit")
 //    }
-//
+
 //    @Test
 //    fun loadMoreProgress() {
 //        loadMoreStatus.postValue(ListViewModel.LoadMoreState(true, null))
@@ -187,7 +188,7 @@ import org.mockito.Mockito
 //        onView(withId(R.id.load_more_bar))
 //            .check(matches(not(isDisplayed())))
 //    }
-//
-//    private fun listMatcher() = RecyclerViewMatcher(R.id.recyclerview_feed)
-//
-//}
+
+    private fun listMatcher() = RecyclerViewMatcher(R.id.recyclerview_feed)
+
+}

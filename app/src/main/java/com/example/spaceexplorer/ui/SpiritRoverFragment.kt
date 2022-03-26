@@ -97,20 +97,20 @@ class SpiritRoverFragment : Fragment(), Injectable {
         binding.roverSelectionLayout.clickListener = object : ClickRoverListener {
             override fun clickCuriosity() {
                 //navigate to CuriosityFragment
-                if (findNavController().currentDestination?.id == R.id.spiritRoverFragment) {
-                    findNavController().navigate(
-                        SpiritRoverFragmentDirections.actionSpiritRoverFragmentToCuriosityRoverFragment()
-                    )
-                }
+//                if (findNavController().currentDestination?.id == R.id.spiritRoverFragment) {
+                findNavController().navigate(
+                    SpiritRoverFragmentDirections.actionSpiritRoverFragmentToCuriosityRoverFragment()
+                )
+//                }
             }
 
             override fun clickOpportunity() {
                 //navigate to OpportunityFragment
-                if (findNavController().currentDestination?.id == R.id.spiritRoverFragment) {
-                    findNavController().navigate(
-                        SpiritRoverFragmentDirections.actionSpiritRoverFragmentToOpportunityRoverFragment()
-                    )
-                }
+//                if (findNavController().currentDestination?.id == R.id.spiritRoverFragment) {
+                findNavController().navigate(
+                    SpiritRoverFragmentDirections.actionSpiritRoverFragmentToOpportunityRoverFragment()
+                )
+//                }
             }
 
             override fun clickSpirit() {
@@ -230,7 +230,10 @@ class SpiritRoverFragment : Fragment(), Injectable {
             dataBindingComponent
         ) { post ->
             findNavController().navigate(
-                SpiritRoverFragmentDirections.actionSpiritRoverFragmentToDetailFragment(post.id, "Spirit")
+                SpiritRoverFragmentDirections.actionSpiritRoverFragmentToDetailFragment(
+                    post.id,
+                    "Spirit"
+                )
             )
         }
         scrollListener = object : RecyclerView.OnScrollListener() {

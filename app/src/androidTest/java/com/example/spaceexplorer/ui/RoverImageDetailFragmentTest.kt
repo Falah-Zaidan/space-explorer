@@ -26,62 +26,62 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
-class RoverImageDetailFragmentTest {
-
-    private val navController = mock<NavController>()
-    private lateinit var listViewModel: ListViewModel
-    private var photoLiveData = MutableLiveData<Resource<MarsRoverPhoto>>()
-
-    @Rule
-    @JvmField
-    val executorRule = TaskExecutorWithIdlingResourceRule()
-
-    @Rule
-    @JvmField
-    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule()
-    private lateinit var mockBindingAdapter: FragmentBindingAdapters
-
-    @Before
-    fun init() {
-        mockBindingAdapter = mock()
-        listViewModel = mock()
-
-        whenever(listViewModel.getPhoto(any())).thenReturn(photoLiveData)
-        val mViewModelFactoryProvider = ViewModelUtil.createFor<ListViewModel>(listViewModel)
-
-        val scenario = launchFragmentInContainer(
-            RoverImageDetailFragmentArgs(123).toBundle(),
-            R.style.AppTheme
-        ) {
-            RoverImageDetailFragment().apply {
-                viewModelProviderFactory = mViewModelFactoryProvider
-                databindingComponent = object : DataBindingComponent {
-                    override fun getFragmentBindingAdapters(): FragmentBindingAdapters {
-                        return mockBindingAdapter
-                    }
-                }
-            }
-        }
-
-        dataBindingIdlingResourceRule.monitorFragment(scenario)
-        scenario.onFragment { fragment ->
-            Navigation.setViewNavController(fragment.requireView(), navController)
-        }
-    }
-
-    @Test
-    fun loading() {
-        photoLiveData.postValue(Resource.loading(null))
-        Espresso.onView(ViewMatchers.withId(R.id.progress_bar))
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        Espresso.onView(ViewMatchers.withId(R.id.retry))
-            .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
-    }
-
-    @Test
-    fun error() {
-
-    }
-
-}
+//@RunWith(AndroidJUnit4::class)
+//class RoverImageDetailFragmentTest {
+//
+//    private val navController = mock<NavController>()
+//    private lateinit var listViewModel: ListViewModel
+//    private var photoLiveData = MutableLiveData<Resource<MarsRoverPhoto>>()
+//
+//    @Rule
+//    @JvmField
+//    val executorRule = TaskExecutorWithIdlingResourceRule()
+//
+//    @Rule
+//    @JvmField
+//    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule()
+//    private lateinit var mockBindingAdapter: FragmentBindingAdapters
+//
+//    @Before
+//    fun init() {
+//        mockBindingAdapter = mock()
+//        listViewModel = mock()
+//
+//        whenever(listViewModel.getPhoto(any())).thenReturn(photoLiveData)
+//        val mViewModelFactoryProvider = ViewModelUtil.createFor<ListViewModel>(listViewModel)
+//
+//        val scenario = launchFragmentInContainer(
+//            RoverImageDetailFragmentArgs(123).toBundle(),
+//            R.style.AppTheme
+//        ) {
+//            RoverImageDetailFragment().apply {
+//                viewModelProviderFactory = mViewModelFactoryProvider
+//                databindingComponent = object : DataBindingComponent {
+//                    override fun getFragmentBindingAdapters(): FragmentBindingAdapters {
+//                        return mockBindingAdapter
+//                    }
+//                }
+//            }
+//        }
+//
+//        dataBindingIdlingResourceRule.monitorFragment(scenario)
+//        scenario.onFragment { fragment ->
+//            Navigation.setViewNavController(fragment.requireView(), navController)
+//        }
+//    }
+//
+//    @Test
+//    fun loading() {
+//        photoLiveData.postValue(Resource.loading(null))
+//        Espresso.onView(ViewMatchers.withId(R.id.progress_bar))
+//            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//        Espresso.onView(ViewMatchers.withId(R.id.retry))
+//            .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
+//    }
+//
+//    @Test
+//    fun error() {
+//
+//    }
+//
+//}
