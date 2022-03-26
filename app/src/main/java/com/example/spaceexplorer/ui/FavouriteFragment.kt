@@ -155,7 +155,7 @@ class FavouriteFragment : Fragment(), Injectable {
                         )
                     } else {
                         FavouriteFragmentDirections.actionFavouriteFragmentToDetailFragment(
-                            favouritePhoto.photo_id
+                            favouritePhoto.photo_id, "favourite"
                         )
                     }
                     //Favourite -> DetailFragment

@@ -230,7 +230,7 @@ class SpiritRoverFragment : Fragment(), Injectable {
             dataBindingComponent
         ) { post ->
             findNavController().navigate(
-                SpiritRoverFragmentDirections.actionSpiritRoverFragmentToDetailFragment(post.id)
+                SpiritRoverFragmentDirections.actionSpiritRoverFragmentToDetailFragment(post.id, "Spirit")
             )
         }
         scrollListener = object : RecyclerView.OnScrollListener() {

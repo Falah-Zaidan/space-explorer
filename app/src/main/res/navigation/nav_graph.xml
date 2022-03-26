@@ -14,6 +14,18 @@
         <action
             android:id="@+id/action_detailFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_curiosityRoverFragment"
+            app:destination="@id/curiosityRoverFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_spiritRoverFragment"
+            app:destination="@id/spiritRoverFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_opportunityRoverFragment"
+            app:destination="@id/opportunityRoverFragment" />
+        <argument
+            android:name="rover_fragment"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/apodFragment"

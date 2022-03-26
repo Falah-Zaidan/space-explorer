@@ -234,7 +234,8 @@ class OpportunityRoverFragment : Fragment(), Injectable {
         ) { post ->
             findNavController().navigate(
                 OpportunityRoverFragmentDirections.actionOpportunityRoverFragmentToDetailFragment(
-                    post.id
+                    post.id,
+                    "Opportunity"
                 )
             )
         }

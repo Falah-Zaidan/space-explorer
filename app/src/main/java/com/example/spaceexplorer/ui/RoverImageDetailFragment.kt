@@ -96,12 +96,11 @@ class RoverImageDetailFragment : Fragment(), Injectable {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-//                findNavController().navigate(
-//                    RoverImageDetailFragmentDirections.actionDetailFragmentToListFragment()
-//                )
+                navigateBackToCorrectFragment()
             }
         })
     }
+
 
     private fun initClickListeners() {
         binding.favouriteClickListener = object : ClickFavourite {
@@ -146,9 +145,7 @@ class RoverImageDetailFragment : Fragment(), Injectable {
 
     private fun initialiseTopAppBar() {
         rover_detail_top_app_bar.setNavigationOnClickListener {
-//            findNavController().navigate(
-//                RoverImageDetailFragmentDirections.actionDetailFragmentToListFragment()
-//            )
+            navigateBackToCorrectFragment()
         }
 
         rover_detail_top_app_bar.setOnMenuItemClickListener { menuItem ->
@@ -158,6 +155,26 @@ class RoverImageDetailFragment : Fragment(), Injectable {
                     true
                 }
                 else -> false
+            }
+        }
+    }
+
+    private fun navigateBackToCorrectFragment() {
+        when (args.roverFragment) {
+            "Spirit" -> {
+                findNavController().navigate(
+                    RoverImageDetailFragmentDirections.actionDetailFragmentToSpiritRoverFragment()
+                )
+            }
+            "Opportunity" -> {
+                findNavController().navigate(
+                    RoverImageDetailFragmentDirections.actionDetailFragmentToOpportunityRoverFragment()
+                )
+            }
+            "Curiosity" -> {
+                findNavController().navigate(
+                    RoverImageDetailFragmentDirections.actionDetailFragmentToCuriosityRoverFragment()
+                )
             }
         }
     }

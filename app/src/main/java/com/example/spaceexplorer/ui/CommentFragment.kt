@@ -114,9 +114,9 @@ class CommentFragment : Fragment(), Injectable {
                 val apodDateArg = args.apodDate
 
                 if (marsRoverArg.toInt() != -1 && apodArg.toInt() == -1) {
-                    findNavController().navigate(
-                        CommentFragmentDirections.actionCommentFragmentToDetailFragment(marsRoverArg)
-                    )
+//                    findNavController().navigate(
+//                        CommentFragmentDirections.actionCommentFragmentToDetailFragment(marsRoverArg)
+//                    )
                 } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() != -1) {
                     findNavController().navigate(
                         CommentFragmentDirections.actionCommentFragmentToApodFragment(apodDateArg)
@@ -136,9 +136,9 @@ class CommentFragment : Fragment(), Injectable {
         rover_list_top_app_bar.setNavigationOnClickListener {
             if (marsRoverArg.toInt() != -1 && apodArg.toInt() == -1) {
                 //navigate back to MarsRoverDetailFragment, passing in the marsRoverArg
-                findNavController().navigate(
-                    CommentFragmentDirections.actionCommentFragmentToDetailFragment(marsRoverArg)
-                )
+//                findNavController().navigate(
+//                    CommentFragmentDirections.actionCommentFragmentToDetailFragment(marsRoverArg)
+//                )
             } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() != -1) {
                 //navigate back to ApodFragment
                 findNavController().navigate(

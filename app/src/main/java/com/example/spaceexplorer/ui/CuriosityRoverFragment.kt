@@ -232,7 +232,7 @@ class CuriosityRoverFragment : Fragment(), Injectable {
             dataBindingComponent
         ) { post ->
             findNavController().navigate(
-                CuriosityRoverFragmentDirections.actionCuriosityRoverFragmentToDetailFragment(post.id)
+                CuriosityRoverFragmentDirections.actionCuriosityRoverFragmentToDetailFragment(post.id, "Curiosity")
             )
         }
         scrollListener = object : RecyclerView.OnScrollListener() {
