@@ -33,7 +33,6 @@ import com.example.spaceexplorer.util.autoCleared
 import com.example.spaceexplorer.viewmodels.ListViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_rover_list.*
 import kotlinx.android.synthetic.main.fragment_rover_list.drawerLayout
 import kotlinx.android.synthetic.main.fragment_spirit_rover.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*

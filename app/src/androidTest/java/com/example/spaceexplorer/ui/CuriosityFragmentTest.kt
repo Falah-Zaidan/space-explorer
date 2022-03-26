@@ -28,12 +28,12 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito
 
 @RunWith(AndroidJUnit4::class)
-class SpiritFragmentTest {
+class CuriosityFragmentTest {
 
     private val navController = mock<NavController>()
     private lateinit var listViewModel: ListViewModel
 
-    private var spiritListLiveData = MutableLiveData<Resource<List<MarsRoverPhoto>>>()
+    private var curiosityListLiveData = MutableLiveData<Resource<List<MarsRoverPhoto>>>()
     private val loadMoreStatus = MutableLiveData<ListViewModel.LoadMoreState>()
 
     @Rule
@@ -54,13 +54,13 @@ class SpiritFragmentTest {
         mockBindingAdapter = mock()
         listViewModel = mock()
 
-        whenever(listViewModel.spiritPhotos).thenReturn(spiritListLiveData)
+        whenever(listViewModel.curiosityPhotos).thenReturn(curiosityListLiveData)
         whenever(listViewModel.getLoadMoreStatus()).thenReturn(loadMoreStatus)
 
         val mViewModelFactoryProvider = ViewModelUtil.createFor(listViewModel)
 
         val scenario = launchFragmentInContainer(null, R.style.AppTheme) {
-            SpiritRoverFragment().apply {
+            CuriosityRoverFragment().apply {
                 viewModelProviderFactory = mViewModelFactoryProvider
                 appExecutors = countingAppExecutors.appExecutors
             }
@@ -81,7 +81,7 @@ class SpiritFragmentTest {
 
     @Test
     fun loading() {
-        spiritListLiveData.postValue(Resource.loading(null))
+        curiosityListLiveData.postValue(Resource.loading(null))
         onView(withId(R.id.progress_bar))
             .check(matches(isDisplayed()))
         onView(withId(R.id.retry))
@@ -91,7 +91,7 @@ class SpiritFragmentTest {
     @Test
     fun error() {
 //        doNothing().`when`(listViewModel).retry()
-        spiritListLiveData.postValue(Resource.error("error", null))
+        curiosityListLiveData.postValue(Resource.error("error", null))
         onView(withId(R.id.progress_bar))
             .check(matches(not(isDisplayed())))
         onView(withId(R.id.error_msg))
@@ -107,7 +107,7 @@ class SpiritFragmentTest {
         val photoList = DataFactory.makePhotoList(10) //make a photo list
         val photoItem = photoList[0] //get a single item from the list (first)
 
-        spiritListLiveData.postValue(Resource.loading(photoList))
+        curiosityListLiveData.postValue(Resource.loading(photoList))
 
         onView(listMatcher().atPosition(0))
             .check(matches(hasDescendant(withText(photoItem.camera.name))))
@@ -120,7 +120,7 @@ class SpiritFragmentTest {
         val photoList = DataFactory.makePhotoList(10) //make a photo list
         val photoItem = photoList[0] //get a single item from the list (first)
 
-        spiritListLiveData.postValue(Resource.success(photoList))
+        curiosityListLiveData.postValue(Resource.success(photoList))
         onView(listMatcher().atPosition(0))
             .check(matches(hasDescendant(withText(photoItem.camera.name))))
         onView(withId(R.id.progress_bar))
@@ -131,13 +131,13 @@ class SpiritFragmentTest {
     fun initialLoadMore() {
 //        doNothing().`when`(listViewModel.loadNextPage())
         val itemList = DataFactory.makePhotoList(50)
-        spiritListLiveData.postValue(Resource.success(itemList))
+        curiosityListLiveData.postValue(Resource.success(itemList))
         val action = scrollToPosition<RecyclerView.ViewHolder>(49)
         onView(withId(R.id.recyclerview_feed)).perform(action)
         onView(listMatcher().atPosition(49))
             .check(matches(isDisplayed()))
         //verify that the nextPage for the right rover is queried...
-        Mockito.verify(listViewModel).loadNextPage("Spirit")
+        Mockito.verify(listViewModel).loadNextPage("Curiosity")
     }
 
     @Test

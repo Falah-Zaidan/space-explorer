@@ -23,7 +23,6 @@ import com.example.spaceexplorer.R
 import com.example.spaceexplorer.adapters.PhotoAdapter
 import com.example.spaceexplorer.binding.FragmentDataBindingComponent
 import com.example.spaceexplorer.databinding.FragmentCuriosityRoverBinding
-import com.example.spaceexplorer.databinding.FragmentSpiritRoverBinding
 import com.example.spaceexplorer.di.util.Injectable
 import com.example.spaceexplorer.ui.common.ClickButtonListener
 import com.example.spaceexplorer.ui.common.ClickRoverListener
@@ -34,7 +33,6 @@ import com.example.spaceexplorer.util.autoCleared
 import com.example.spaceexplorer.viewmodels.ListViewModel
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_rover_list.*
 import kotlinx.android.synthetic.main.fragment_rover_list.drawerLayout
 import kotlinx.android.synthetic.main.fragment_spirit_rover.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -150,7 +148,7 @@ class CuriosityRoverFragment : Fragment(), Injectable {
     }
 
     private fun initDataBindingLayout() {
-        binding.photos = listViewModel.spiritPhotos
+        binding.photos = listViewModel.curiosityPhotos
         binding.lifecycleOwner = viewLifecycleOwner
         binding.callback = object : RetryCallback {
             override fun retry() {
@@ -240,7 +238,7 @@ class CuriosityRoverFragment : Fragment(), Injectable {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastPosition = layoutManager.findLastVisibleItemPosition()
                 if (lastPosition == mAdapter.itemCount - 1) {
-                    listViewModel.loadNextPage("Spirit")
+                    listViewModel.loadNextPage("Curiosity")
                 }
             }
         }

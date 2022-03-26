@@ -100,11 +100,11 @@ class OpportunityRoverFragment : Fragment(), Injectable {
         binding.roverSelectionLayout.clickListener = object : ClickRoverListener {
             override fun clickCuriosity() {
                 //navigate to CuriosityFragment
-                if (findNavController().currentDestination?.id == R.id.opportunityRoverFragment) {
-                    findNavController().navigate(
-                        OpportunityRoverFragmentDirections.actionOpportunityRoverFragmentToCuriosityRoverFragment()
-                    )
-                }
+//                if (findNavController().currentDestination?.id == R.id.opportunityRoverFragment) {
+                findNavController().navigate(
+                    OpportunityRoverFragmentDirections.actionOpportunityRoverFragmentToCuriosityRoverFragment()
+                )
+//                }
             }
 
             override fun clickOpportunity() {
@@ -113,11 +113,11 @@ class OpportunityRoverFragment : Fragment(), Injectable {
 
             override fun clickSpirit() {
                 //navigate to SpiritFragment
-                if (findNavController().currentDestination?.id == R.id.opportunityRoverFragment) {
-                    findNavController().navigate(
-                        OpportunityRoverFragmentDirections.actionOpportunityRoverFragmentToSpiritRoverFragment()
-                    )
-                }
+//                if (findNavController().currentDestination?.id == R.id.opportunityRoverFragment) {
+                findNavController().navigate(
+                    OpportunityRoverFragmentDirections.actionOpportunityRoverFragmentToSpiritRoverFragment()
+                )
+//                }
             }
         }
 
@@ -151,7 +151,8 @@ class OpportunityRoverFragment : Fragment(), Injectable {
     }
 
     private fun initDataBindingLayout() {
-        binding.photos = listViewModel.spiritPhotos
+        //** this is what the loading/error state in the UI depends on... **
+        binding.photos = listViewModel.opportunityPhotos
         binding.lifecycleOwner = viewLifecycleOwner
         binding.callback = object : RetryCallback {
             override fun retry() {
@@ -244,7 +245,7 @@ class OpportunityRoverFragment : Fragment(), Injectable {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastPosition = layoutManager.findLastVisibleItemPosition()
                 if (lastPosition == mAdapter.itemCount - 1) {
-                    listViewModel.loadNextPage("Spirit")
+                    listViewModel.loadNextPage("Opportunity")
                 }
             }
         }
