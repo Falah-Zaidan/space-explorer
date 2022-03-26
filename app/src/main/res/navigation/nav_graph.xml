@@ -5,29 +5,12 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.example.spaceexplorer.ui.RoverImageFragment"
-        android:label="ListFragment" >
-        <action
-            android:id="@+id/action_listFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-        <action
-            android:id="@+id/action_listFragment_to_apodFragment"
-            app:destination="@id/apodFragment" />
-        <action
-            android:id="@+id/action_listFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.spaceexplorer.ui.RoverImageDetailFragment"
         android:label="DetailFragment" >
         <argument
             android:name="item_key"
             app:argType="long" />
-        <action
-            android:id="@+id/action_detailFragment_to_listFragment"
-            app:destination="@id/listFragment" />
         <action
             android:id="@+id/action_detailFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
@@ -128,13 +111,52 @@
     <fragment
         android:id="@+id/spiritRoverFragment"
         android:name="com.example.spaceexplorer.ui.SpiritRoverFragment"
-        android:label="SpiritRoverFragment" />
+        android:label="SpiritRoverFragment" >
+        <action
+            android:id="@+id/action_spiritRoverFragment_to_opportunityRoverFragment"
+            app:destination="@id/opportunityRoverFragment" />
+        <action
+            android:id="@+id/action_spiritRoverFragment_to_curiosityRoverFragment"
+            app:destination="@id/curiosityRoverFragment" />
+        <action
+            android:id="@+id/action_spiritRoverFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_spiritRoverFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/opportunityRoverFragment"
         android:name="com.example.spaceexplorer.ui.OpportunityRoverFragment"
-        android:label="OpportunityRoverFragment" />
+        android:label="OpportunityRoverFragment" >
+        <action
+            android:id="@+id/action_opportunityRoverFragment_to_spiritRoverFragment"
+            app:destination="@id/spiritRoverFragment" />
+        <action
+            android:id="@+id/action_opportunityRoverFragment_to_curiosityRoverFragment"
+            app:destination="@id/curiosityRoverFragment" />
+        <action
+            android:id="@+id/action_opportunityRoverFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_opportunityRoverFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/curiosityRoverFragment"
         android:name="com.example.spaceexplorer.ui.CuriosityRoverFragment"
-        android:label="CuriosityRoverFragment" />
+        android:label="CuriosityRoverFragment" >
+        <action
+            android:id="@+id/action_curiosityRoverFragment_to_opportunityRoverFragment"
+            app:destination="@id/opportunityRoverFragment" />
+        <action
+            android:id="@+id/action_curiosityRoverFragment_to_spiritRoverFragment"
+            app:destination="@id/spiritRoverFragment" />
+        <action
+            android:id="@+id/action_curiosityRoverFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_curiosityRoverFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

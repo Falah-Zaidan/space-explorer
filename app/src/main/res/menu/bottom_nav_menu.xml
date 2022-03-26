@@ -8,7 +8,7 @@
         android:title="@string/menu_item_apod"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/listFragment"
+        android:id="@+id/spiritRoverFragment"
         android:enabled="true"
         android:icon="@drawable/ic_mars_rover_icon"
         android:title="@string/menu_item_rovers"

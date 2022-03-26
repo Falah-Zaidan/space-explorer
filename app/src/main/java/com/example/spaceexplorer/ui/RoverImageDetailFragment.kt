@@ -96,9 +96,9 @@ class RoverImageDetailFragment : Fragment(), Injectable {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(
-                    RoverImageDetailFragmentDirections.actionDetailFragmentToListFragment()
-                )
+//                findNavController().navigate(
+//                    RoverImageDetailFragmentDirections.actionDetailFragmentToListFragment()
+//                )
             }
         })
     }
@@ -146,9 +146,9 @@ class RoverImageDetailFragment : Fragment(), Injectable {
 
     private fun initialiseTopAppBar() {
         rover_detail_top_app_bar.setNavigationOnClickListener {
-            findNavController().navigate(
-                RoverImageDetailFragmentDirections.actionDetailFragmentToListFragment()
-            )
+//            findNavController().navigate(
+//                RoverImageDetailFragmentDirections.actionDetailFragmentToListFragment()
+//            )
         }
 
         rover_detail_top_app_bar.setOnMenuItemClickListener { menuItem ->

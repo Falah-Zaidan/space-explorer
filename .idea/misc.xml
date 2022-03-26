@@ -13,7 +13,11 @@
         <entry key="app/src/main/res/layout/fragment_rover_detail.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_rover_list.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_spirit_rover.xml" value="0.18541666666666667" />
+        <entry key="app/src/main/res/layout/rover_list_selection_bar.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/rover_list_toolbar.xml" value="0.196875" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.18541666666666667" />
+        <entry key="app/src/main/res/menu/apod_top_app_bar.xml" value="0.18541666666666667" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.18541666666666667" />
       </map>
     </option>
   </component>
