@@ -6,9 +6,13 @@
         <entry key="app/src/main/res/layout/apod_toolbar.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/favourite_list_item.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_apod.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/fragment_curiosity_rover.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout/fragment_favourite.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_opportunity.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout/fragment_rover_detail.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/fragment_rover_list.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_spirit_rover.xml" value="0.18541666666666667" />
         <entry key="app/src/main/res/layout/rover_list_toolbar.xml" value="0.196875" />
       </map>
     </option>
