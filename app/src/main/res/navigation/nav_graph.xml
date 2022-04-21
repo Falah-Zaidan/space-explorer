@@ -171,4 +171,9 @@
             android:id="@+id/action_curiosityRoverFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/editorsPicksFragment"
+        android:name="com.example.spaceexplorer.ui.EditorsPicksFragment"
+        android:label="fragment_editors_picks"
+        tools:layout="@layout/fragment_editors_picks" />
 </navigation>

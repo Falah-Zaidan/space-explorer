@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/editorsPicksFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_book_24"
+        android:title="@string/menu_item_editors_picks"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/apodFragment"
         android:enabled="true"
         android:icon="@drawable/ic_apod_icon"

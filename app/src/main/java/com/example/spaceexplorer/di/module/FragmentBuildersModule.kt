@@ -8,9 +8,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentBuildersModule {
 
-//    @ContributesAndroidInjector
-//    abstract fun contributeListFragment(): RoverImageFragment
-
     @ContributesAndroidInjector
     abstract fun contributeDetailFragment(): RoverImageDetailFragment
 
@@ -40,5 +37,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeCuriosityFragment(): CuriosityRoverFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeEditorsPickFragment(): EditorsPicksFragment
 }
 
