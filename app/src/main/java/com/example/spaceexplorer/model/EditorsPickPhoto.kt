@@ -18,6 +18,10 @@ data class EditorsPickPhoto(
     @Expose
     val photoId: String,
 
+    @SerializedName("photo_name")
+    @Expose
+    val name: String,
+
     @SerializedName("date")
     @Expose
     val date: String,
