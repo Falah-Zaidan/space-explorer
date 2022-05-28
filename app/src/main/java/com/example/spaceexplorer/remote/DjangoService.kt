@@ -82,7 +82,6 @@ interface DjangoService {
         @Field("url") url: String
     ): Call<DjangoAPODPhotoApiResponse.APODPhoto>
 
-
     // == comment related operations == //
 
     @FormUrlEncoded
@@ -120,5 +119,10 @@ interface DjangoService {
         @Path("apod_id") apod_id: Long,
         @Query("page") page: Int
     ): LiveData<ApiResponse<DjangoCommentApiResponse>>
+
+    @GET("/api/editorpickphoto/list")
+    suspend fun getEditorPickPhotos(
+        @Header("Authorization") authToken: String
+    ): DjangoEditorsPickResponse
 
 }

@@ -65,7 +65,7 @@
     <string name="menu_item_favourites">Favourites</string>
     <string name="menu_item_rovers">Rovers</string>
     <string name="menu_item_apod">Day picture</string>
-    <string name="menu_item_editors_picks">Editors Picks</string>
+    <string name="menu_item_editors_picks">Selections</string>
 
     <!-- ** top menus ** -->
     <string name="menu_item_save">Save</string>

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/editorsPicksFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_book_24"
+        android:icon="@drawable/ic_baseline_editors_pick_icon_24"
         android:title="@string/menu_item_editors_picks"
         app:showAsAction="ifRoom" />
     <item

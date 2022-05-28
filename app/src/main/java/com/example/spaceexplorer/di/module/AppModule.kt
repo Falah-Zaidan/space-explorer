@@ -14,10 +14,7 @@ import com.example.spaceexplorer.cache.db.NASADatabase
 import com.example.spaceexplorer.di.viewmodel.ViewModelFactory
 import com.example.spaceexplorer.di.viewmodel.ViewModelKey
 import com.example.spaceexplorer.remote.*
-import com.example.spaceexplorer.viewmodels.FavouriteViewModel
-import com.example.spaceexplorer.viewmodels.ListViewModel
-import com.example.spaceexplorer.viewmodels.LoginViewModel
-import com.example.spaceexplorer.viewmodels.RegisterViewModel
+import com.example.spaceexplorer.viewmodels.*
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -47,6 +44,11 @@ abstract class AppModule {
     @IntoMap
     @ViewModelKey(RegisterViewModel::class)
     abstract fun bindRegisterViewModel(registerViewModel: RegisterViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditorsPickViewModel::class)
+    abstract fun bindEditorsPickViewModel(editorsPickViewModel: EditorsPickViewModel): ViewModel
 
     @ContributesAndroidInjector(modules = [FragmentBuildersModule::class])
     abstract fun contributeMainActivity(): MainActivity
