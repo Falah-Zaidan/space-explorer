@@ -1,6 +1,7 @@
 package com.example.spaceexplorer.ui
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.spaceexplorer.AppExecutors
 import com.example.spaceexplorer.R
 import com.example.spaceexplorer.adapters.EditorsPickAdapter
@@ -18,6 +20,8 @@ import com.example.spaceexplorer.databinding.FragmentEditorsPicksBinding
 import com.example.spaceexplorer.di.util.Injectable
 import com.example.spaceexplorer.util.autoCleared
 import com.example.spaceexplorer.viewmodels.EditorsPickViewModel
+import kotlinx.android.synthetic.main.fragment_favourite.*
+import kotlinx.android.synthetic.main.selection_toolbar.*
 import javax.inject.Inject
 
 class EditorsPicksFragment : Fragment(), Injectable {
@@ -100,6 +104,26 @@ class EditorsPicksFragment : Fragment(), Injectable {
 //        })
 
         binding.editorsPickList.adapter = mAdapter
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        selection_top_app_bar.setNavigationOnClickListener {
+            drawerLayout.openDrawer(Gravity.LEFT)
+        }
+
+//        navigation_view_fragment_favourite.setNavigationItemSelectedListener { menuItem ->
+//            // Handle menu item selected
+//            menuItem.isChecked = true
+//            drawerLayout.closeDrawer(Gravity.LEFT)
+//            if (menuItem.itemId == R.id.logout) {
+//                findNavController().navigate(
+//                    FavouriteFragmentDirections.actionFavouriteFragmentToLoginFragment()
+//                )
+//            }
+//            true
+//        }
     }
 
 }

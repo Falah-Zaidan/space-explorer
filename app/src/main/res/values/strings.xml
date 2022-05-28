@@ -25,6 +25,7 @@
     <string name="apod_toolbar_title">Picture of the day</string>
     <string name="rovers_toolbar_title">Mars Rovers</string>
     <string name="comment_toolbar_title">Comments</string>
+    <string name="selection_toolbar_title">Selections</string>
 
     <!-- navigation drawer -->
     <string name="nav_header_title">Falah Zaidan</string>
