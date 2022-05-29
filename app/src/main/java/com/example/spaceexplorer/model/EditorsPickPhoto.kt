@@ -34,4 +34,6 @@ data class EditorsPickPhoto(
     @Expose
     val url: String
 
-)
+) {
+    var favourite: Boolean = false
+}

@@ -85,7 +85,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/feed_item_image"
+                        android:id="@+id/selection_item_image"
                         android:layout_width="match_parent"
                         android:layout_height="400dp"
                         app:imageUrl="@{apodPhoto.hdURL}"
@@ -132,7 +132,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.024"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+                        app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
                         app:layout_constraintVertical_bias="0.0"
                         app:srcCompat="@drawable/ic_baseline_favorite_24"
                         app:visibleGone="@{apodPhoto.favourite}" />
@@ -147,7 +147,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.024"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+                        app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
                         app:layout_constraintVertical_bias="0.0"
                         app:srcCompat="@drawable/ic_baseline_favorite_border_24"
                         app:visibleGone="@{!apodPhoto.favourite}" />
@@ -163,7 +163,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.132"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/feed_item_image"
+                        app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
                         app:layout_constraintVertical_bias="0.0"
                         app:srcCompat="@drawable/ic_baseline_comment_24" />
 

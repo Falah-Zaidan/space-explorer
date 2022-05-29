@@ -9,10 +9,12 @@ import com.example.spaceexplorer.AppExecutors
 import com.example.spaceexplorer.R
 import com.example.spaceexplorer.databinding.EditorsPickListItemBinding
 import com.example.spaceexplorer.model.EditorsPickPhoto
+import com.example.spaceexplorer.model.MarsRoverPhoto
 
 class EditorsPickAdapter constructor(
     appExecutors: AppExecutors,
-    private val dataBindingComponent: DataBindingComponent
+    private val dataBindingComponent: DataBindingComponent,
+    private val listener: (EditorsPickPhoto) -> Unit
 ) : DataBoundListAdapter<EditorsPickPhoto, EditorsPickListItemBinding>(appExecutors = appExecutors,
     diffCallback = object : DiffUtil.ItemCallback<EditorsPickPhoto>() {
         override fun areItemsTheSame(
@@ -39,6 +41,12 @@ class EditorsPickAdapter constructor(
                 false,
                 dataBindingComponent
             )
+
+        binding.root.setOnClickListener {
+            binding.photo?.let {
+                listener.invoke(it)
+            }
+        }
 
         return binding
     }

@@ -77,7 +77,13 @@ class EditorsPicksFragment : Fragment(), Injectable {
         mAdapter = EditorsPickAdapter(
             appExecutors,
             dataBindingComponent
-        )
+        ) {
+            findNavController().navigate(
+                EditorsPicksFragmentDirections.actionEditorsPicksFragmentToSelectionDetailFragment(
+                    it.photoId
+                )
+            )
+        }
 
 //        scrollListener = object : RecyclerView.OnScrollListener() {
 //            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

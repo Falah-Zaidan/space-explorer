@@ -40,5 +40,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeEditorsPickFragment(): EditorsPicksFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeSelectionDetailFragment(): SelectionDetailFragment
 }
 

@@ -175,5 +175,17 @@
         android:id="@+id/editorsPicksFragment"
         android:name="com.example.spaceexplorer.ui.EditorsPicksFragment"
         android:label="fragment_editors_picks"
-        tools:layout="@layout/fragment_editors_picks" />
+        tools:layout="@layout/fragment_editors_picks" >
+        <action
+            android:id="@+id/action_editorsPicksFragment_to_selectionDetailFragment"
+            app:destination="@id/selectionDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionDetailFragment"
+        android:name="com.example.spaceexplorer.ui.SelectionDetailFragment"
+        android:label="SelectionDetailFragment" >
+        <argument
+            android:name="editor_pick_photo_id"
+            app:argType="string" />
+    </fragment>
 </navigation>
