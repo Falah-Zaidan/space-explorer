@@ -112,6 +112,7 @@ class CommentFragment : Fragment(), Injectable {
                 val marsRoverArg = args.marsRoverPhotoId
                 val apodArg = args.apodId
                 val apodDateArg = args.apodDate
+                val editorsPickArg = args.editorsPickPhotoId
 
                 if (marsRoverArg.toInt() != -1 && apodArg.toInt() == -1) {
 //                    findNavController().navigate(
@@ -120,6 +121,10 @@ class CommentFragment : Fragment(), Injectable {
                 } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() != -1) {
                     findNavController().navigate(
                         CommentFragmentDirections.actionCommentFragmentToApodFragment(apodDateArg)
+                    )
+                } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() == -1 && editorsPickArg.toInt() == -1) {
+                    findNavController().navigate(
+                        CommentFragmentDirections.actionCommentFragmentToEditorsPicksFragment()
                     )
                 }
             }
@@ -131,6 +136,7 @@ class CommentFragment : Fragment(), Injectable {
         val marsRoverArg = args.marsRoverPhotoId
         val apodArg = args.apodId
         val apodDateArg = args.apodDate
+        val editorsPickArg = args.editorsPickPhotoId
 
         //when the user presses back on the Comment Screen - how to decide which Fragment he goes back to:
         rover_list_top_app_bar.setNavigationOnClickListener {
@@ -144,8 +150,11 @@ class CommentFragment : Fragment(), Injectable {
                 findNavController().navigate(
                     CommentFragmentDirections.actionCommentFragmentToApodFragment(apodDateArg)
                 )
+            } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() == -1 && editorsPickArg.toInt() == -1) {
+                findNavController().navigate(
+                    CommentFragmentDirections.actionCommentFragmentToEditorsPicksFragment()
+                )
             }
-
         }
 
         rover_list_top_app_bar.setOnMenuItemClickListener { menuItem ->

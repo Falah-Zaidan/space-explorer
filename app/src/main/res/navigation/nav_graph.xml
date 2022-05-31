@@ -83,6 +83,9 @@
         <argument
             android:name="editorsPickPhotoId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_commentFragment_to_editorsPicksFragment"
+            app:destination="@id/editorsPicksFragment" />
     </fragment>
     <fragment
         android:id="@+id/createCommentFragment"
