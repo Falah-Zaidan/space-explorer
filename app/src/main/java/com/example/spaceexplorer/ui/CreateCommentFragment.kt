@@ -135,7 +135,8 @@ class CreateCommentFragment : Fragment(), Injectable {
                     CreateCommentFragmentDirections.actionCreateCommentFragmentToCommentFragment(
                         args.apodId,
                         args.marsRoverPhotoId,
-                        args.apodDate
+                        args.apodDate,
+                        -1
                     )
                 )
             }

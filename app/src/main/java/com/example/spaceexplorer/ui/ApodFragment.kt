@@ -46,10 +46,7 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.apod_toolbar.*
 import kotlinx.android.synthetic.main.fragment_apod.*
-import kotlinx.android.synthetic.main.fragment_apod.drawerLayout
-import kotlinx.android.synthetic.main.fragment_rover_list.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
-import kotlinx.android.synthetic.main.rover_list_toolbar.*
 import java.util.*
 import javax.inject.Inject
 
@@ -127,11 +124,11 @@ class ApodFragment : Fragment(), Injectable {
         binding.lifecycleOwner = viewLifecycleOwner
 
         //2 cases:
-            //User first enters the app - should show the latest date
-                //Can be done in the ViewModel (setting a static date)
-            //User navigates from 'Favourite' item - should show the picture from that particular date
-                //Can be done alongside the above if we check for navArgs - if they are empty then we go for the default (ViewModel) value
-                //We also need to save that value to the Database (since it is now the currentAPOD)
+        //User first enters the app - should show the latest date
+        //Can be done in the ViewModel (setting a static date)
+        //User navigates from 'Favourite' item - should show the picture from that particular date
+        //Can be done alongside the above if we check for navArgs - if they are empty then we go for the default (ViewModel) value
+        //We also need to save that value to the Database (since it is now the currentAPOD)
         val query_key = args.apodDate
         if (query_key != "" && query_key != "void") {
             listViewModel.setApodDate(query_key)
@@ -168,9 +165,11 @@ class ApodFragment : Fragment(), Injectable {
                 if (!areItemsTheSame(it.data, currentAPOD)) {
                     binding.apodPhoto = it.data
                     setCurrentApod(it.data)
-                    listViewModel.setCurrentAPOD(CurrentAPOD(
-                        it.data.date
-                    ))
+                    listViewModel.setCurrentAPOD(
+                        CurrentAPOD(
+                            it.data.date
+                        )
+                    )
                 } else {
                     binding.apodPhoto = currentAPOD
                 }
@@ -230,7 +229,8 @@ class ApodFragment : Fragment(), Injectable {
                     ApodFragmentDirections.actionApodFragmentToCommentFragment(
                         convertFromDate(currentAPOD!!.date), // this is the apodDate value converted into a long value - it's going to be unique for every APOD
                         -1,
-                        currentAPOD!!.date
+                        currentAPOD!!.date,
+                        -1
                     )
                 )
             }
