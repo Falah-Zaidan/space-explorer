@@ -6,6 +6,7 @@ import com.example.spaceexplorer.AppExecutors
 import com.example.spaceexplorer.OpenForTesting
 import com.example.spaceexplorer.cache.dao.FavouriteDao
 import com.example.spaceexplorer.cache.model.APOD
+import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.model.Favourite
 import com.example.spaceexplorer.model.MarsRoverPhoto
 import com.example.spaceexplorer.util.Constants
@@ -66,6 +67,21 @@ class FavouriteRepository @Inject constructor(
                     Constants.abc_rover_name,
                     nextInt().toString(),
                     apodPhoto.explanation
+                )
+            )
+        }
+    }
+
+    fun saveEditorsPickPhoto(editorsPickPhoto: EditorsPickPhoto) {
+        appExecutors.diskIO().execute {
+            favouriteDao.insertFavourite(
+                Favourite(
+                    photo_id = editorsPickPhoto.photoId.toLong(),
+                    photo_url = editorsPickPhoto.url,
+                    earth_date = editorsPickPhoto.date,
+                    rover_name = Constants.abc_rover_name,
+                    camera_name = nextInt().toString(),
+                    explanation = editorsPickPhoto.explanation
                 )
             )
         }

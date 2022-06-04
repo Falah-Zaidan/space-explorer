@@ -5,4 +5,6 @@ interface ClickFavourite {
     fun clickUnfavouriteRover()
     fun clickFavouriteAPOD()
     fun clickUnfavouriteAPOD()
+    fun clickFavouriteEditorsPickPhoto()
+    fun clickUnfavouriteEditorsPickPhoto()
 }

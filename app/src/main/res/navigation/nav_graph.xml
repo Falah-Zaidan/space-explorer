@@ -196,5 +196,8 @@
         <action
             android:id="@+id/action_selectionDetailFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_selectionDetailFragment_to_editorsPicksFragment"
+            app:destination="@id/editorsPicksFragment" />
     </fragment>
 </navigation>

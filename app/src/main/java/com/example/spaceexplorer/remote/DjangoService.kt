@@ -120,9 +120,14 @@ interface DjangoService {
         @Query("page") page: Int
     ): LiveData<ApiResponse<DjangoCommentApiResponse>>
 
+//    @GET("/api/editorpickphoto/list")
+//    suspend fun getEditorPickPhotos(
+//        @Header("Authorization") authToken: String
+//    ): DjangoEditorsPickResponse
+
     @GET("/api/editorpickphoto/list")
-    suspend fun getEditorPickPhotos(
+    fun getEditorPickPhotos(
         @Header("Authorization") authToken: String
-    ): DjangoEditorsPickResponse
+    ): LiveData<ApiResponse<DjangoEditorsPickResponse>>
 
 }

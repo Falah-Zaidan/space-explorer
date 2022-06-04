@@ -11,7 +11,10 @@ import com.google.gson.annotations.SerializedName
 "url": "3223"
 */
 
-@Entity(tableName = "EditorsPickPhoto")
+@Entity(
+    tableName = "EditorsPickPhoto",
+    primaryKeys = ["photoId"]
+)
 data class EditorsPickPhoto(
 
     @SerializedName("editor_photo_id")

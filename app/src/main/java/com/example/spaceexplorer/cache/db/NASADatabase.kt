@@ -8,11 +8,14 @@ import com.example.spaceexplorer.cache.dao.LoginDao
 import com.example.spaceexplorer.cache.dao.PhotoDao
 import com.example.spaceexplorer.cache.model.*
 import com.example.spaceexplorer.model.APODPhoto
+import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.model.Favourite
 import com.example.spaceexplorer.model.MarsRoverPhoto
 
 @Database(
-    entities = [MarsRoverPhoto::class, MarsRoverApiResult::class, APODPhoto::class, Favourite::class, Comment::class, User::class, APOD::class, FavouritePhotoApiResult::class, CurrentAPOD::class],
+    entities = [MarsRoverPhoto::class, MarsRoverApiResult::class, APODPhoto::class,
+        Favourite::class, Comment::class, User::class, APOD::class,
+        FavouritePhotoApiResult::class, CurrentAPOD::class, EditorsPickPhoto::class],
     version = 1
 )
 @TypeConverters(Converters::class)

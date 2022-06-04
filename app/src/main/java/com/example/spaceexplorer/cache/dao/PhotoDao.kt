@@ -5,11 +5,25 @@ import androidx.room.*
 import com.example.spaceexplorer.cache.db.Constants
 import com.example.spaceexplorer.cache.model.*
 import com.example.spaceexplorer.model.APODPhoto
+import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.model.Favourite
 import com.example.spaceexplorer.model.MarsRoverPhoto
 
 @Dao
 interface PhotoDao {
+
+    //EditorPickPhoto related operations
+    @Query("SELECT * FROM editorspickphoto")
+    fun getEditorPickPhotos(): LiveData<List<EditorsPickPhoto>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertEditorPickPhotos(editorPickPhotos: List<EditorsPickPhoto>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertEditorPickPhoto(editorsPickPhoto: EditorsPickPhoto)
+
+    @Query("DELETE FROM EditorsPickPhoto")
+    fun deleteEditorsPickEntries()
 
 //   MarsRoverPhoto related operations
 

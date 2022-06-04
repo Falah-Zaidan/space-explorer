@@ -262,6 +262,14 @@ class ApodFragment : Fragment(), Injectable {
                     listViewModel.removeFavouriteAPODPhoto(it)
                 }
             }
+
+            override fun clickFavouriteEditorsPickPhoto() {
+                throw UnsupportedOperationException()
+            }
+
+            override fun clickUnfavouriteEditorsPickPhoto() {
+                throw UnsupportedOperationException()
+            }
         }
 
         binding.navigateClickListener = object : NavigateClickListener {

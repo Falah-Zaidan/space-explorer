@@ -18,7 +18,7 @@
         <!--            type="LiveData&lt;Resource&lt;EditorsPickPhoto>>" />-->
 
         <variable
-            name="photo"
+            name="editorsPickPhoto"
             type="com.example.spaceexplorer.model.EditorsPickPhoto" />
 
         <variable
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:adjustViewBounds="true"
-            app:imageUrl="@{photo.url}"
+            app:imageUrl="@{editorsPickPhoto.url}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selection_detail_toolbar"
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
             app:layout_constraintVertical_bias="0.05"
             app:srcCompat="@drawable/ic_baseline_favorite_24"
-            app:visibleGone="@{photo.favourite}" />
+            app:visibleGone="@{editorsPickPhoto.favourite}" />
 
         <ImageView
             android:id="@+id/favourite_border"
@@ -99,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
             app:layout_constraintVertical_bias="0.05"
             app:srcCompat="@drawable/ic_baseline_favorite_border_24"
-            app:visibleGone="@{!photo.favourite}" />
+            app:visibleGone="@{!editorsPickPhoto.favourite}" />
 
         <!--        android:onClick="@{() -> commentClickListener.clickedCommentScreen()}"-->
 
@@ -121,10 +121,12 @@
             android:id="@+id/camera_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{photo.explanation}"
+            android:layout_marginTop="3dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@{editorsPickPhoto.explanation}"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:layout_marginTop="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
