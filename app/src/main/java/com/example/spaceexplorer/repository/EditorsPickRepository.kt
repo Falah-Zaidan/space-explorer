@@ -3,6 +3,7 @@ package com.example.spaceexplorer.repository
 import androidx.lifecycle.LiveData
 import com.example.spaceexplorer.AppExecutors
 import com.example.spaceexplorer.OpenForTesting
+import com.example.spaceexplorer.cache.dao.FavouriteDao
 import com.example.spaceexplorer.cache.dao.PhotoDao
 import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.remote.DjangoService
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 class EditorsPickRepository @Inject constructor(
     private val service: DjangoService,
     private val photoDao: PhotoDao,
+    private val favouriteDao: FavouriteDao,
     private val appExecutors: AppExecutors
 ) {
 
@@ -53,7 +55,7 @@ class EditorsPickRepository @Inject constructor(
             }
 
             override fun shouldFetch(data: List<EditorsPickPhoto>?): Boolean {
-                return data == null
+                return true
             }
 
             override fun loadFromDb(): LiveData<List<EditorsPickPhoto>> {
@@ -64,6 +66,22 @@ class EditorsPickRepository @Inject constructor(
                 return service.getEditorPickPhotos(authToken = "Token 4d0d38a8857e24501812f9eab292e08426366436")
             }
         }.asLiveData()
+    }
+
+    fun getEditorPickPhoto(): LiveData<Resource<EditorsPickPhoto>> {
+        return object : NetworkBoundResource<EditorsPickPhoto, >(appExecutors) {
+
+        }
+    }
+
+    fun insertEditorsPickPhoto(editorsPickPhoto: EditorsPickPhoto) {
+        appExecutors.diskIO().execute(InsertEditorsPickPhotoRunnable(editorsPickPhoto))
+    }
+
+    inner class InsertEditorsPickPhotoRunnable(val editorsPickPhoto: EditorsPickPhoto) : Runnable {
+        override fun run() {
+            photoDao.insertEditorPickPhoto(editorsPickPhoto)
+        }
     }
 
 }

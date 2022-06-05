@@ -118,7 +118,7 @@ class RoverImageDetailFragment : Fragment(), Injectable {
                     it.favourite = false
                     listViewModel.insertMarsRoverPhoto(it)
                     //use the ViewModel to remove a FavouritePhoto
-                    listViewModel.removeFavouriteMarsRoverPhoto(it)
+                    listViewModel.removeFavouriteMarsRoverPhotoFavourite(it)
                 }
             }
 
@@ -130,6 +130,13 @@ class RoverImageDetailFragment : Fragment(), Injectable {
                 throw UnsupportedOperationException()
             }
 
+            override fun clickFavouriteEditorsPickPhoto() {
+                throw UnsupportedOperationException()
+            }
+
+            override fun clickUnfavouriteEditorsPickPhoto() {
+                throw UnsupportedOperationException()
+            }
         }
     }
 

@@ -16,14 +16,16 @@ interface PhotoDao {
     @Query("SELECT * FROM editorspickphoto")
     fun getEditorPickPhotos(): LiveData<List<EditorsPickPhoto>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEditorPickPhotos(editorPickPhotos: List<EditorsPickPhoto>)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEditorPickPhoto(editorsPickPhoto: EditorsPickPhoto)
 
     @Query("DELETE FROM EditorsPickPhoto")
     fun deleteEditorsPickEntries()
+
+    //END EditorPickPhoto related operations
 
 //   MarsRoverPhoto related operations
 

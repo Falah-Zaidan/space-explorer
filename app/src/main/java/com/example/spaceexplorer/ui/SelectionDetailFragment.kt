@@ -111,9 +111,11 @@ class SelectionDetailFragment : Fragment(), Injectable {
                 binding.editorsPickPhoto?.let {
                     it.favourite = true
                     //insert into DB
-//                    listViewModel.insertAPOD(it)
+                    editorsPickViewModel.insertEditorsPickPhoto(it)
 
                     //refresh ViewModel to get fresh LiveData (so that the UI updates)
+
+                    //update the current UI
                     editorsPickViewModel.refresh()
 
                     //save the favourite Photo
@@ -122,7 +124,19 @@ class SelectionDetailFragment : Fragment(), Injectable {
             }
 
             override fun clickUnfavouriteEditorsPickPhoto() {
+                binding.editorsPickPhoto?.let {
+                    it.favourite = false
+                    //insert into DB
+                    editorsPickViewModel.insertEditorsPickPhoto(it)
 
+                    //refresh ViewModel to get fresh LiveData (so that the UI updates)
+
+                    //update the current UI
+                    editorsPickViewModel.refresh()
+
+                    //save the favourite Photo
+                    editorsPickViewModel.removeEditorsPickPhotoFavourite(it)
+                }
             }
         }
     }
@@ -231,9 +245,9 @@ class SelectionDetailFragment : Fragment(), Injectable {
     }
 
     private fun observeLiveData() {
-        editorsPickViewModel.getEditorsPicks()
-        editorsPickViewModel._editorsPickLiveData.observe(viewLifecycleOwner, Observer {
-            val mEditorPickPhoto = getListItem(it, args.editorPickPhotoId)
+        editorsPickViewModel.editorsPickPhotosLiveData.observe(viewLifecycleOwner, Observer {
+            //TODO: nullability
+            val mEditorPickPhoto = getListItem(it.data, args.editorPickPhotoId)
             if (mEditorPickPhoto != null) {
                 binding.editorsPickPhoto = mEditorPickPhoto
                 this.editorsPickPhoto = mEditorPickPhoto
@@ -242,8 +256,8 @@ class SelectionDetailFragment : Fragment(), Injectable {
         })
     }
 
-    private fun getListItem(list: List<EditorsPickPhoto>, id: String): EditorsPickPhoto? {
-        list.forEach { editorsPickPhoto ->
+    private fun getListItem(list: List<EditorsPickPhoto>?, id: String): EditorsPickPhoto? {
+        list?.forEach { editorsPickPhoto ->
             if (editorsPickPhoto.photoId.equals(id)) {
                 return editorsPickPhoto
             }

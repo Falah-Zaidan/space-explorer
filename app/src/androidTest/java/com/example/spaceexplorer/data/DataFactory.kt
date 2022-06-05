@@ -1,6 +1,7 @@
 package com.example.spaceexplorer.data
 
 import com.example.spaceexplorer.cache.model.APOD
+import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.model.MarsRoverPhoto
 import java.util.*
 import kotlin.random.Random.Default.nextInt
@@ -28,6 +29,17 @@ class DataFactory {
                 randomUuid(),
                 randomUuid()
             )
+        }
+
+        fun makeEditorsPickList(count: Int): List<EditorsPickPhoto> {
+            val simpleItems = mutableListOf<EditorsPickPhoto>()
+            repeat(count) {
+                simpleItems.add(
+                    createEditorPickPhoto()
+                )
+            }
+
+            return simpleItems
         }
 
         fun randomUuid(): String {
@@ -61,6 +73,16 @@ class DataFactory {
 
         private fun createCamera(): MarsRoverPhoto.Camera {
             return MarsRoverPhoto.Camera(
+                randomUuid()
+            )
+        }
+
+        private fun createEditorPickPhoto(): EditorsPickPhoto {
+            return EditorsPickPhoto(
+                randomUuid(),
+                randomUuid(),
+                randomUuid(),
+                randomUuid(),
                 randomUuid()
             )
         }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "943b23b173b41329c265cb4b664f6ae4",
+    "identityHash": "9181404783316bfb8a3798e60dd32a0e",
     "entities": [
       {
         "tableName": "marsRoverPhotos",
@@ -364,12 +364,62 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "EditorsPickPhoto",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`favourite` INTEGER NOT NULL, `photoId` TEXT NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `explanation` TEXT NOT NULL, `url` TEXT NOT NULL, PRIMARY KEY(`photoId`))",
+        "fields": [
+          {
+            "fieldPath": "favourite",
+            "columnName": "favourite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "photoId",
+            "columnName": "photoId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "explanation",
+            "columnName": "explanation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "photoId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '943b23b173b41329c265cb4b664f6ae4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9181404783316bfb8a3798e60dd32a0e')"
     ]
   }
 }

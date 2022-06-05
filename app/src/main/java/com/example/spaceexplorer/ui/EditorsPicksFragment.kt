@@ -67,10 +67,25 @@ class EditorsPicksFragment : Fragment(), Injectable {
 
     private fun observeLiveData() {
 
-        editorsPickViewModel.getEditorsPicks()
-        editorsPickViewModel._editorsPickLiveData.observe(viewLifecycleOwner, Observer {
-            mAdapter.submitList(it)
+        //working
+//        editorsPickViewModel._editorsPickLiveData.observe(viewLifecycleOwner, Observer {
+//            mAdapter.submitList(it.data)
+//        })
+
+        editorsPickViewModel.editorsPickPhotosLiveData.observe(viewLifecycleOwner, Observer {
+            mAdapter.submitList(it.data)
         })
+
+        //        editorsPickViewModel.getEditorsPicks()
+
+//        editorsPickViewModel.getEditorsPicks().observe(viewLifecycleOwner, Observer {
+//            mAdapter.submitList(it.data)
+//        })
+
+//        editorsPickViewModel._editorsPickLiveData.observe(viewLifecycleOwner, Observer {
+//            mAdapter.submitList(it.data)
+//        })
+
     }
 
     private fun initAdapter() {

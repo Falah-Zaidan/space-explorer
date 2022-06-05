@@ -242,7 +242,7 @@ class ListViewModel @Inject constructor(
         favouriteRepository.saveMarsRoverPhoto(photo)
     }
 
-    fun removeFavouriteMarsRoverPhoto(photo: MarsRoverPhoto) {
+    fun removeFavouriteMarsRoverPhotoFavourite(photo: MarsRoverPhoto) {
         favouriteRepository.deleteFavourite(photo.id)
     }
 

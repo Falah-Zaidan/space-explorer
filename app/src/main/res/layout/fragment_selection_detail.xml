@@ -22,12 +22,12 @@
             type="com.example.spaceexplorer.model.EditorsPickPhoto" />
 
         <variable
-            name="retryCallback"
-            type="com.example.spaceexplorer.ui.common.RetryCallback" />
-
-        <variable
             name="favouriteClickListener"
             type="com.example.spaceexplorer.ui.common.ClickFavourite" />
+
+        <variable
+            name="retryCallback"
+            type="com.example.spaceexplorer.ui.common.RetryCallback" />
 
     </data>
 
@@ -79,6 +79,7 @@
             android:id="@+id/favourite_filled"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:onClick="@{() -> favouriteClickListener.clickUnfavouriteEditorsPickPhoto()}"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.024"
@@ -92,6 +93,7 @@
             android:id="@+id/favourite_border"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:onClick="@{() -> favouriteClickListener.clickFavouriteEditorsPickPhoto()}"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.024"
