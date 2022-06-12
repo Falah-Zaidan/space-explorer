@@ -16,7 +16,10 @@ interface PhotoDao {
     @Query("SELECT * FROM editorspickphoto")
     fun getEditorPickPhotos(): LiveData<List<EditorsPickPhoto>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Query("SELECT * FROM editorspickphoto WHERE editorspickphoto.date == :date")
+    fun getEditorPickPhoto(date: String): LiveData<EditorsPickPhoto>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertEditorPickPhotos(editorPickPhotos: List<EditorsPickPhoto>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

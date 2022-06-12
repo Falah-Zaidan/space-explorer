@@ -116,7 +116,7 @@ class SelectionDetailFragment : Fragment(), Injectable {
                     //refresh ViewModel to get fresh LiveData (so that the UI updates)
 
                     //update the current UI
-                    editorsPickViewModel.refresh()
+                    editorsPickViewModel.refreshEditorPickPhotoSingle()
 
                     //save the favourite Photo
                     editorsPickViewModel.setFavouriteEditorsPickPhoto(it)
@@ -132,7 +132,7 @@ class SelectionDetailFragment : Fragment(), Injectable {
                     //refresh ViewModel to get fresh LiveData (so that the UI updates)
 
                     //update the current UI
-                    editorsPickViewModel.refresh()
+                    editorsPickViewModel.refreshEditorPickPhotoSingle()
 
                     //save the favourite Photo
                     editorsPickViewModel.removeEditorsPickPhotoFavourite(it)
@@ -245,13 +245,32 @@ class SelectionDetailFragment : Fragment(), Injectable {
     }
 
     private fun observeLiveData() {
-        editorsPickViewModel.editorsPickPhotosLiveData.observe(viewLifecycleOwner, Observer {
-            //TODO: nullability
-            val mEditorPickPhoto = getListItem(it.data, args.editorPickPhotoId)
-            if (mEditorPickPhoto != null) {
-                binding.editorsPickPhoto = mEditorPickPhoto
-                this.editorsPickPhoto = mEditorPickPhoto
-                selection_detail_top_app_bar.title = mEditorPickPhoto.name
+//        editorsPickViewModel.editorsPickPhotosLiveData.observe(viewLifecycleOwner, Observer {
+//            //TODO: nullability
+//            val mEditorPickPhoto = getListItem(it.data, args.editorPickPhotoId)
+//            if (mEditorPickPhoto != null) {
+//                binding.editorsPickPhoto = mEditorPickPhoto
+//                this.editorsPickPhoto = mEditorPickPhoto
+//                selection_detail_top_app_bar.title = mEditorPickPhoto.name
+//            }
+//        })
+
+//        editorsPickViewModel.getEditorPickPhoto(args.date).observe(viewLifecycleOwner, Observer {
+//            val editorPickPhoto = it.data
+//            if (editorPickPhoto != null) {
+//                binding.editorsPickPhoto = editorPickPhoto
+//                this.editorsPickPhoto = editorPickPhoto
+//                selection_detail_top_app_bar.title = editorPickPhoto.name
+//            }
+//        })
+
+        editorsPickViewModel.getEditorPickPhoto(args.date)
+        editorsPickViewModel.editorPickPhotoLiveData.observe(viewLifecycleOwner, Observer {
+            val editorPickPhoto = it.data
+            if (editorPickPhoto != null) {
+                binding.editorsPickPhoto = editorPickPhoto
+                this.editorsPickPhoto = editorPickPhoto
+                selection_detail_top_app_bar.title = editorPickPhoto.name
             }
         })
     }

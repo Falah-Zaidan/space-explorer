@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.spaceexplorer.AppExecutors
 import com.example.spaceexplorer.R
 import com.example.spaceexplorer.adapters.EditorsPickAdapter
@@ -41,6 +43,8 @@ class EditorsPicksFragment : Fragment(), Injectable {
     val editorsPickViewModel: EditorsPickViewModel by viewModels {
         viewModelProviderFactory
     }
+
+    var scrollListener by autoCleared<RecyclerView.OnScrollListener>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,22 +99,22 @@ class EditorsPicksFragment : Fragment(), Injectable {
         ) {
             findNavController().navigate(
                 EditorsPicksFragmentDirections.actionEditorsPicksFragmentToSelectionDetailFragment(
-                    it.photoId
+                    it.date
                 )
             )
         }
 
-//        scrollListener = object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-//                val lastPosition = layoutManager.findLastVisibleItemPosition()
-//                if (lastPosition == mAdapter.itemCount - 1) {
-//                    listViewModel.loadNextPage("Opportunity")
-//                }
-//            }
-//        }
+        scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastPosition = layoutManager.findLastVisibleItemPosition()
+                if (lastPosition == mAdapter.itemCount - 1) {
+                    editorsPickViewModel.loadNextPage()
+                }
+            }
+        }
 
-//        binding.recyclerviewFeed.addOnScrollListener(scrollListener)
+        binding.editorsPickList.addOnScrollListener(scrollListener)
 
 //        listViewModel.getLoadMoreStatus().observe(viewLifecycleOwner, Observer { loadingMore ->
 //            if (loadingMore == null) {

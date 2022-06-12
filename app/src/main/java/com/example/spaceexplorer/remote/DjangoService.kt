@@ -131,9 +131,8 @@ interface DjangoService {
     ): LiveData<ApiResponse<DjangoEditorsPickResponse>>
 
     @GET("/api/editorpickphoto/{editor_pick_photo_date}")
-    fun getEditorPickPhotosByDate(
+    fun getEditorPickPhotoByDate(
         @Header("Authorization") authToken: String,
-        @Path("apod_photo_date") apod_photo_date: String
-    ): Call<DjangoEditorPickPhotoApiResponseSingle>
-
+        @Path("editor_pick_photo_date") editor_pick_photo_date: String
+    ): LiveData<ApiResponse<DjangoEditorPickPhotoApiResponseSingle>>
 }

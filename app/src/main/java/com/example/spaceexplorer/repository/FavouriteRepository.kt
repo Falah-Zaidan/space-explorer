@@ -46,12 +46,15 @@ class FavouriteRepository @Inject constructor(
         appExecutors.diskIO().execute {
             favouriteDao.insertFavourite(
                 Favourite(
-                    marsRoverPhoto.id,
-                    marsRoverPhoto.image_href,
-                    marsRoverPhoto.earth_date,
-                    marsRoverPhoto.rover.name,
-                    marsRoverPhoto.camera.name,
-                    Constants.no_explanation
+                    photo_id = marsRoverPhoto.id,
+                    photo_url = marsRoverPhoto.image_href,
+                    earth_date = marsRoverPhoto.earth_date,
+                    rover_name = marsRoverPhoto.rover.name,
+                    camera_name = marsRoverPhoto.camera.name,
+                    explanation = Constants.no_explanation,
+                    favouriteType = "MarsRoverPhoto",
+                    editorPickPhotoDateTaken = "",
+                    editorsPickPhotoName = ""
                 )
             )
         }
@@ -61,12 +64,15 @@ class FavouriteRepository @Inject constructor(
         appExecutors.diskIO().execute {
             favouriteDao.insertFavourite(
                 Favourite(
-                    convertFromDate(apodPhoto.date),
-                    apodPhoto.hdURL,
-                    apodPhoto.date,
-                    Constants.abc_rover_name,
-                    nextInt().toString(),
-                    apodPhoto.explanation
+                    photo_id = convertFromDate(apodPhoto.date),
+                    photo_url = apodPhoto.hdURL,
+                    earth_date = apodPhoto.date,
+                    rover_name = Constants.abc_rover_name,
+                    camera_name = nextInt().toString(),
+                    explanation = apodPhoto.explanation,
+                    favouriteType = "APODPhoto",
+                    editorPickPhotoDateTaken = "",
+                    editorsPickPhotoName = ""
                 )
             )
         }
@@ -78,10 +84,13 @@ class FavouriteRepository @Inject constructor(
                 Favourite(
                     photo_id = editorsPickPhoto.photoId.toLong(),
                     photo_url = editorsPickPhoto.url,
-                    earth_date = editorsPickPhoto.date,
+                    earth_date = "",
                     rover_name = Constants.abc_rover_name,
                     camera_name = nextInt().toString(),
-                    explanation = editorsPickPhoto.explanation
+                    explanation = editorsPickPhoto.explanation,
+                    favouriteType = "EditorPickPhoto",
+                    editorPickPhotoDateTaken = editorsPickPhoto.date,
+                    editorsPickPhotoName = editorsPickPhoto.name
                 )
             )
         }

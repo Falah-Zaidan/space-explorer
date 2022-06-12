@@ -7,6 +7,7 @@ import com.example.spaceexplorer.cache.dao.FavouriteDao
 import com.example.spaceexplorer.cache.dao.PhotoDao
 import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.remote.DjangoService
+import com.example.spaceexplorer.remote.model.DjangoEditorPickPhotoApiResponseSingle
 import com.example.spaceexplorer.remote.model.DjangoEditorsPickResponse
 import com.example.spaceexplorer.repository.util.NetworkBoundResource
 import com.example.spaceexplorer.util.ApiResponse
@@ -68,10 +69,42 @@ class EditorsPickRepository @Inject constructor(
         }.asLiveData()
     }
 
-    fun getEditorPickPhoto(): LiveData<Resource<EditorsPickPhoto>> {
-        return object : NetworkBoundResource<EditorsPickPhoto, >(appExecutors) {
+    fun getEditorPickPhoto(date: String): LiveData<Resource<EditorsPickPhoto>> {
+        return object :
+            NetworkBoundResource<EditorsPickPhoto, DjangoEditorPickPhotoApiResponseSingle>(
+                appExecutors
+            ) {
+            override fun saveCallResult(item: DjangoEditorPickPhotoApiResponseSingle) {
+                photoDao.insertEditorPickPhoto(deserialize(item))
+            }
 
-        }
+            override fun shouldFetch(data: EditorsPickPhoto?): Boolean {
+                return data == null
+            }
+
+            override fun loadFromDb(): LiveData<EditorsPickPhoto> {
+                return photoDao.getEditorPickPhoto(date)
+            }
+
+            override fun createCall(): LiveData<ApiResponse<DjangoEditorPickPhotoApiResponseSingle>> {
+                return service.getEditorPickPhotoByDate(
+                    authToken = "Token 4d0d38a8857e24501812f9eab292e08426366436",
+                    editor_pick_photo_date = date
+                )
+            }
+        }.asLiveData()
+    }
+
+    private fun deserialize(item: DjangoEditorPickPhotoApiResponseSingle): EditorsPickPhoto {
+        val editorPickPhoto = EditorsPickPhoto(
+            item.editor_photo_id,
+            item.photo_name,
+            item.date,
+            item.explanation,
+            item.url
+        )
+
+        return editorPickPhoto
     }
 
     fun insertEditorsPickPhoto(editorsPickPhoto: EditorsPickPhoto) {

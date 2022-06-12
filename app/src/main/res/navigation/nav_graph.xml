@@ -191,7 +191,7 @@
         android:name="com.example.spaceexplorer.ui.SelectionDetailFragment"
         android:label="SelectionDetailFragment" >
         <argument
-            android:name="editor_pick_photo_id"
+            android:name="date"
             app:argType="string" />
         <action
             android:id="@+id/action_selectionDetailFragment_to_commentFragment"

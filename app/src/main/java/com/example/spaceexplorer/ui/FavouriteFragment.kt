@@ -21,6 +21,7 @@ import com.example.spaceexplorer.binding.FragmentDataBindingComponent
 import com.example.spaceexplorer.cache.model.APOD
 import com.example.spaceexplorer.databinding.FragmentFavouriteBinding
 import com.example.spaceexplorer.di.util.Injectable
+import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.model.Favourite
 import com.example.spaceexplorer.model.MarsRoverPhoto
 import com.example.spaceexplorer.ui.common.RetryCallback
@@ -115,27 +116,43 @@ class FavouriteFragment : Fragment(), Injectable {
 
                 //insert the new MarsRoverPhoto through the favouriteViewModel (with the 'favourite' flag set to false)
                 //this should overwrite the older (obsolete) one
-                if (!favouritePhoto.rover_name.equals("abc")) {
+//                if (!favouritePhoto.rover_name.equals("abc")) {
+//                    val newMarsRoverPhoto = MarsRoverPhoto(
+//                        favouritePhoto.photo_id,
+//                        favouritePhoto.photo_url,
+//                        favouritePhoto.earth_date,
+//                        MarsRoverPhoto.Rover(
+//                            favouritePhoto.rover_name
+//                        ),
+//                        MarsRoverPhoto.Camera(
+//                            favouritePhoto.camera_name
+//                        )
+//                    )
+//                    newMarsRoverPhoto.favourite = false
+//
+//                    favouriteViewModel.insertMarsRoverPhoto(newMarsRoverPhoto)
+
+                if (favouritePhoto.favouriteType.equals("MarsRoverPhoto")) {
                     val newMarsRoverPhoto = MarsRoverPhoto(
-                        favouritePhoto.photo_id,
-                        favouritePhoto.photo_url,
-                        favouritePhoto.earth_date,
-                        MarsRoverPhoto.Rover(
+                        id = favouritePhoto.photo_id,
+                        image_href = favouritePhoto.photo_url,
+                        earth_date = favouritePhoto.earth_date,
+                        rover = MarsRoverPhoto.Rover(
                             favouritePhoto.rover_name
                         ),
-                        MarsRoverPhoto.Camera(
+                        camera = MarsRoverPhoto.Camera(
                             favouritePhoto.camera_name
                         )
                     )
                     newMarsRoverPhoto.favourite = false
 
                     favouriteViewModel.insertMarsRoverPhoto(newMarsRoverPhoto)
-                } else {
+                } else if (favouritePhoto.favouriteType.equals("APODPhoto")) {
                     val newAPODPhoto = APOD(
-                        favouritePhoto.photo_id,
-                        favouritePhoto.earth_date,
-                        favouritePhoto.explanation,
-                        favouritePhoto.photo_url
+                        id = favouritePhoto.photo_id,
+                        date = favouritePhoto.earth_date,
+                        explanation = favouritePhoto.explanation,
+                        hdURL = favouritePhoto.photo_url
                     )
 
                     newAPODPhoto.favourite = false
@@ -143,6 +160,18 @@ class FavouriteFragment : Fragment(), Injectable {
                     favouriteViewModel.insertAPOD(
                         newAPODPhoto
                     )
+                } else if (favouritePhoto.favouriteType.equals("EditorPickPhoto")) {
+                    val newEditorsPickPhoto = EditorsPickPhoto(
+                        photoId = favouritePhoto.photo_id.toString(),
+                        name = favouritePhoto.editorsPickPhotoName,
+                        date = favouritePhoto.editorPickPhotoDateTaken,
+                        explanation = favouritePhoto.explanation,
+                        url = favouritePhoto.photo_url
+                    )
+
+                    newEditorsPickPhoto.favourite = false
+
+                    favouriteViewModel.insertEditorsPickPhoto(newEditorsPickPhoto)
                 }
             },
             image_clicked_listener =

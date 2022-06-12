@@ -17,22 +17,27 @@ class EditorsPickViewModel @Inject constructor(
     private val favouriteRepository: FavouriteRepository
 ) : ViewModel() {
 
-    private val _trigger : MutableLiveData<Boolean> = MutableLiveData(true)
+    private val _trigger: MutableLiveData<Boolean> = MutableLiveData(true)
+    private val _editorPickPhotoTrigger: MutableLiveData<String> = MutableLiveData("")
 
-    val editorsPickPhotosLiveData: LiveData<Resource<List<EditorsPickPhoto>>> = _trigger.switchMap { _ ->
-        editorsPickRepository.getEditorPickPhotosNBR()
+    val editorsPickPhotosLiveData: LiveData<Resource<List<EditorsPickPhoto>>> =
+        _trigger.switchMap { _ ->
+            editorsPickRepository.getEditorPickPhotosNBR()
+        }
+
+    val editorPickPhotoLiveData: LiveData<Resource<EditorsPickPhoto>> =
+        _editorPickPhotoTrigger.switchMap { it ->
+            editorsPickRepository.getEditorPickPhoto(it)
+        }
+
+    fun getEditorPickPhoto(date: String) {
+        _editorPickPhotoTrigger.value = date
     }
 
-//    var _editorsPickLiveData: LiveData<Resource<List<EditorsPickPhoto>>> =
-//        editorsPickRepository.getEditorPickPhotosNBR()
-
-//    var _editorsPickLiveData: LiveData<Resource<List<EditorsPickPhoto>>> =
-//        trigger.switchMap {
-//            editorsPickRepository.getEditorPickPhotosNBR()
-//        }
-
-    fun getEditorPickPhoto(photoId: Long): EditorsPickPhoto {
-        editorsPickRepository.getEditorPickPhoto
+    fun refreshEditorPickPhotoSingle() {
+        _editorPickPhotoTrigger.value?.let {
+            _editorPickPhotoTrigger.value = it
+        }
     }
 
     fun refresh() {
@@ -51,6 +56,10 @@ class EditorsPickViewModel @Inject constructor(
 
     fun removeEditorsPickPhotoFavourite(editorsPickPhoto: EditorsPickPhoto) {
         favouriteRepository.deleteFavourite(editorsPickPhoto.photoId.toLong())
+    }
+
+    fun loadNextPage() {
+
     }
 
 }

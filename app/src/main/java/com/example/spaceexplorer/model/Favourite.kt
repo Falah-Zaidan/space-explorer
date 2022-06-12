@@ -11,5 +11,8 @@ data class Favourite(
     val earth_date: String,
     val rover_name: String,
     val camera_name: String,
-    val explanation: String
+    val explanation: String,
+    val editorsPickPhotoName: String,
+    val editorPickPhotoDateTaken: String,
+    val favouriteType: String
 )
