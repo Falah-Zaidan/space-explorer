@@ -58,8 +58,4 @@ class EditorsPickViewModel @Inject constructor(
         favouriteRepository.deleteFavourite(editorsPickPhoto.photoId.toLong())
     }
 
-    fun loadNextPage() {
-
-    }
-
 }

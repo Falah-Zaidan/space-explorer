@@ -5,6 +5,34 @@
 
     <data>
 
+        <import type="java.util.List" />
+
+        <import type="com.example.spaceexplorer.util.Resource" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="com.example.spaceexplorer.model.EditorsPickPhoto" />
+
+        <variable
+            name="loadingMore"
+            type="boolean" />
+
+        <variable
+            name="editorsPickPhotos"
+            type="LiveData&lt;Resource&lt;List&lt;EditorsPickPhoto>>>" />
+
+        <variable
+            name="callback"
+            type="com.example.spaceexplorer.ui.common.RetryCallback" />
+
+        <variable
+            name="clickListener"
+            type="com.example.spaceexplorer.ui.common.ClickButtonListener" />
+
+        <variable
+            name="retryCallback"
+            type="com.example.spaceexplorer.ui.common.RetryCallback" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,6 +59,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/selection_toolbar"
             tools:listitem="@layout/editors_pick_list_item" />
+
+        <include
+            android:id="@+id/loadingState"
+            layout="@layout/loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:callback="@{() -> callback.retry()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resource="@{(Resource) editorsPickPhotos}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

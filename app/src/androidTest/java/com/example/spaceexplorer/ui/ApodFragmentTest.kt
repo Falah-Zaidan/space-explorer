@@ -162,7 +162,7 @@ class ApodFragmentTest {
 
         verify(navController).navigate(
             ApodFragmentDirections.actionApodFragmentToCommentFragment(
-                apodItem.id, -1, anyString()
+                apodItem.id, -1, anyString(), -1
             )
         )
     }

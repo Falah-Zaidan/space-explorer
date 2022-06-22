@@ -13,9 +13,9 @@
 
         <import type="androidx.lifecycle.LiveData" />
 
-        <!--        <variable-->
-        <!--            name="photoLiveData"-->
-        <!--            type="LiveData&lt;Resource&lt;EditorsPickPhoto>>" />-->
+        <variable
+            name="editorsPickPhotoLiveData"
+            type="LiveData&lt;Resource&lt;EditorsPickPhoto>>" />
 
         <variable
             name="editorsPickPhoto"
@@ -56,24 +56,21 @@
             app:layout_constraintTop_toBottomOf="@+id/selection_detail_toolbar"
             app:srcCompat="@drawable/ic_launcher_background" />
 
-        <!--        <include-->
-        <!--            android:id="@+id/include3"-->
-        <!--            layout="@layout/loading_state"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="8dp"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:layout_marginEnd="8dp"-->
-        <!--            android:layout_marginBottom="8dp"-->
-        <!--            app:callback="@{() -> retryCallback.retry()}"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:resource="@{(Resource) photoLiveData}" />-->
-
-        <!--        android:onClick="@{() -> favouriteClickListener.clickUnfavouriteRover()}"-->
-        <!--        android:onClick="@{() -> favouriteClickListener.clickFavouriteRover()}"-->
+        <include
+            android:id="@+id/loading_state"
+            layout="@layout/loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:callback="@{() -> retryCallback.retry()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resource="@{(Resource) editorsPickPhotoLiveData}" />
 
         <ImageView
             android:id="@+id/favourite_filled"
@@ -120,7 +117,7 @@
             app:srcCompat="@drawable/ic_baseline_comment_24" />
 
         <TextView
-            android:id="@+id/camera_text"
+            android:id="@+id/image_explanation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"

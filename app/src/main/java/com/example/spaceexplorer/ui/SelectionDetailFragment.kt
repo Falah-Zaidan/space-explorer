@@ -29,6 +29,7 @@ import com.example.spaceexplorer.databinding.FragmentSelectionDetailBinding
 import com.example.spaceexplorer.di.util.Injectable
 import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.ui.common.ClickFavourite
+import com.example.spaceexplorer.ui.common.RetryCallback
 import com.example.spaceexplorer.util.autoCleared
 import com.example.spaceexplorer.viewmodels.EditorsPickViewModel
 import kotlinx.android.synthetic.main.selection_detail_toolbar.*
@@ -69,10 +70,24 @@ class SelectionDetailFragment : Fragment(), Injectable {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        initDataBindingLayout()
         observeLiveData()
         initViews()
         initClickListeners()
         initialiseTopAppBar()
+    }
+
+    private fun initDataBindingLayout() {
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.editorsPickPhotoLiveData = editorsPickViewModel.editorPickPhotoLiveData
+
+        binding.retryCallback = object : RetryCallback {
+            override fun retry() {
+                editorsPickViewModel.refresh()
+            }
+        }
+
     }
 
     private fun initClickListeners() {
@@ -245,25 +260,6 @@ class SelectionDetailFragment : Fragment(), Injectable {
     }
 
     private fun observeLiveData() {
-//        editorsPickViewModel.editorsPickPhotosLiveData.observe(viewLifecycleOwner, Observer {
-//            //TODO: nullability
-//            val mEditorPickPhoto = getListItem(it.data, args.editorPickPhotoId)
-//            if (mEditorPickPhoto != null) {
-//                binding.editorsPickPhoto = mEditorPickPhoto
-//                this.editorsPickPhoto = mEditorPickPhoto
-//                selection_detail_top_app_bar.title = mEditorPickPhoto.name
-//            }
-//        })
-
-//        editorsPickViewModel.getEditorPickPhoto(args.date).observe(viewLifecycleOwner, Observer {
-//            val editorPickPhoto = it.data
-//            if (editorPickPhoto != null) {
-//                binding.editorsPickPhoto = editorPickPhoto
-//                this.editorsPickPhoto = editorPickPhoto
-//                selection_detail_top_app_bar.title = editorPickPhoto.name
-//            }
-//        })
-
         editorsPickViewModel.getEditorPickPhoto(args.date)
         editorsPickViewModel.editorPickPhotoLiveData.observe(viewLifecycleOwner, Observer {
             val editorPickPhoto = it.data
@@ -273,16 +269,6 @@ class SelectionDetailFragment : Fragment(), Injectable {
                 selection_detail_top_app_bar.title = editorPickPhoto.name
             }
         })
-    }
-
-    private fun getListItem(list: List<EditorsPickPhoto>?, id: String): EditorsPickPhoto? {
-        list?.forEach { editorsPickPhoto ->
-            if (editorsPickPhoto.photoId.equals(id)) {
-                return editorsPickPhoto
-            }
-        }
-
-        return null
     }
 
     private fun initViews() {

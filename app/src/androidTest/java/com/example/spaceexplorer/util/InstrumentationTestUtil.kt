@@ -215,6 +215,9 @@ object InstrumentationTestUtil {
                     randomUuid(),
                     randomUuid(),
                     randomUuid(),
+                    randomUuid(),
+                    randomUuid(),
+                    randomUuid(),
                     randomUuid()
                 )
             )

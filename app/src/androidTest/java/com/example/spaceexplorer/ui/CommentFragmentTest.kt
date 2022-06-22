@@ -60,7 +60,7 @@ class CommentFragmentTest {
         val mViewModelFactoryProvider = ViewModelUtil.createFor(listViewModel)
 
         val scenario = launchFragmentInContainer(
-            CommentFragmentArgs(-1L, 123L, "2015-03-03").toBundle(),
+            CommentFragmentArgs(-1L, 123L, "2015-03-03", -1).toBundle(),
             R.style.AppTheme
         ) {
             CommentFragment().apply {

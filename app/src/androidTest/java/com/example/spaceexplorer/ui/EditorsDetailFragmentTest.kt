@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -17,21 +19,22 @@ import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.util.*
 import com.example.spaceexplorer.viewmodels.EditorsPickViewModel
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class EditorsPickFragmentTest {
+class EditorsDetailFragmentTest {
 
     private val navController = mock<NavController>()
     private lateinit var editorsPickViewModel: EditorsPickViewModel
 
-    private var editorsPickPhotosLiveData = MutableLiveData<Resource<List<EditorsPickPhoto>>>()
-//    private var editorsPickPhotoLiveData = MutableLiveData<Resource<EditorsPickPhoto>>()
+    private var editorPickPhotoLiveData = MutableLiveData<Resource<EditorsPickPhoto>>()
 
     @Rule
     @JvmField
@@ -51,24 +54,25 @@ class EditorsPickFragmentTest {
         mockBindingAdapter = mock()
         editorsPickViewModel = mock()
 
-        whenever(editorsPickViewModel.editorsPickPhotosLiveData).thenReturn(
-            editorsPickPhotosLiveData
+        whenever(editorsPickViewModel.editorPickPhotoLiveData).thenReturn(
+            editorPickPhotoLiveData
         )
-//        whenever(editorsPickViewModel.editorPickPhotoLiveData).thenReturn(
-//            editorsPickPhotoLiveData
-//        )
+
         val mViewModelFactoryProvider = ViewModelUtil.createFor(editorsPickViewModel)
 
         val scenario =
-            launchFragmentInContainer(null, R.style.AppTheme) {
-                EditorsPicksFragment().apply {
+            launchFragmentInContainer(
+                SelectionDetailFragmentArgs("05-06-2022").toBundle(),
+                R.style.AppTheme
+            ) {
+                SelectionDetailFragment().apply {
                     viewModelProviderFactory = mViewModelFactoryProvider
                     dataBindingComponent = object : DataBindingComponent {
                         override fun getFragmentBindingAdapters(): FragmentBindingAdapters {
                             return mockBindingAdapter
                         }
                     }
-                    appExecutors = countingAppExecutors.appExecutors
+//                    appExecutors = countingAppExecutors.appExecutors
                 }
             }
 
@@ -80,7 +84,7 @@ class EditorsPickFragmentTest {
 
     @Test
     fun loading() {
-        editorsPickPhotosLiveData.postValue(Resource.loading(null))
+        editorPickPhotoLiveData.postValue(Resource.loading(null))
         Espresso.onView(withId(R.id.progress_bar))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(withId(R.id.retry))
@@ -89,7 +93,7 @@ class EditorsPickFragmentTest {
 
     @Test
     fun error() {
-        editorsPickPhotosLiveData.postValue(Resource.error("wtf", null))
+        editorPickPhotoLiveData.postValue(Resource.error("wtf", null))
         Espresso.onView(withId(R.id.progress_bar))
             .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
         Espresso.onView(withId(R.id.error_msg))
@@ -98,59 +102,59 @@ class EditorsPickFragmentTest {
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
-//    @Test
-//    fun loadingWithSimpleItem() {
-//        val editorsPickList = DataFactory.makeEditorsPickList(10) //make a photo list
-//        val editorPickItem = editorsPickList[0] //get a single item from the list (first)
-//
-//        editorsPickPhotosLiveData.postValue(Resource.loading(editorsPickList))
-//
-//        //TODO: verify that the image has been displayed
-//
-//        Espresso.onView(ViewMatchers.withId(R.id.progress_bar))
-//            .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
-//    }
-//
-//    @Test
-//    fun loadedSimpleItem() {
-//        val editorsPickList = DataFactory.makeEditorsPickList(10) //make a photo list
-//        val editorPickItem = editorsPickList[0] //get a single item from the list (first)
-//
-//        editorsPickPhotosLiveData.postValue(Resource.success(editorsPickList))
-//
-//        //TODO: verify that the image has been displayed
-//
-//        Espresso.onView(ViewMatchers.withId(R.id.progress_bar))
-//            .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
-//    }
+    @Test
+    fun loadingWithSimpleItem() {
+        val editorsPickList = DataFactory.makeEditorsPickList(10) //make a photo list
+        val editorPickItem = editorsPickList[0] //get a single item from the list (first)
 
-//    @Test
-//    fun clickCommentButton() {
-//        val editorsPickList = DataFactory.makeEditorsPickList(10) //make a photo list
-//        val editorPickItem = editorsPickList[0] //get a single item from the list (first)
-//
-//        editorsPickPhotosLiveData.postValue(Resource.success(editorsPickList))
-//
-//        onView(withId(R.id.comment_btn)).perform(click())
-//
-//        verify(navController).navigate(
-//            EditorsPicksFragmentDirections.actionEditorsPicksFragmentToSelectionDetailFragment(
-//                editorPickItem.date
-//            )
-//        )
-//    }
+        editorPickPhotoLiveData.postValue(Resource.loading(editorPickItem))
 
-//    @Test
-//    fun likeButtonClicked() {
-//        onView(withId(R.id.like_border)).perform(click())
-//
-//        //check that filled like is displayed
-//        onView(withId(R.id.like_filled))
-//            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//
-//        //check that border like is not displayed
-//        onView(withId(R.id.like_border))
-//            .check(matches(not(isDisplayed())))
-//    }
+        Espresso.onView(withId(R.id.image_explanation))
+            .check(ViewAssertions.matches(ViewMatchers.withText(editorPickItem.explanation)))
+        Espresso.onView(ViewMatchers.withId(R.id.progress_bar))
+            .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
+    }
+
+    @Test
+    fun loadedSimpleItem() {
+        val editorsPickList = DataFactory.makeEditorsPickList(10) //make a photo list
+        val editorPickItem = editorsPickList[0] //get a single item from the list (first)
+
+        editorPickPhotoLiveData.postValue(Resource.success(editorPickItem))
+
+        Espresso.onView(withId(R.id.image_explanation))
+            .check(ViewAssertions.matches(ViewMatchers.withText(editorPickItem.explanation)))
+        Espresso.onView(ViewMatchers.withId(R.id.progress_bar))
+            .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
+    }
+
+    @Test
+    fun clickCommentButton() {
+        val editorsPickList = DataFactory.makeEditorsPickList(10) //make a photo list
+        val editorPickItem = editorsPickList[0] //get a single item from the list (first)
+
+        editorPickPhotoLiveData.postValue(Resource.success(editorPickItem))
+
+        onView(withId(R.id.comment_btn)).perform(click())
+
+        verify(navController).navigate(
+            SelectionDetailFragmentDirections.actionSelectionDetailFragmentToCommentFragment(
+                -1, -1, "", -1
+            )
+        )
+    }
+
+    @Test
+    fun likeButtonClicked() {
+        onView(withId(R.id.like_border)).perform(click())
+
+        //check that filled like is displayed
+        onView(withId(R.id.like_filled))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+
+        //check that border like is not displayed
+        onView(withId(R.id.like_filled))
+            .check(ViewAssertions.matches(not(ViewMatchers.isDisplayed())))
+    }
 
 }

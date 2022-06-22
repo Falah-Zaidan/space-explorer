@@ -12,14 +12,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.spaceexplorer.AppExecutors
 import com.example.spaceexplorer.R
 import com.example.spaceexplorer.adapters.EditorsPickAdapter
 import com.example.spaceexplorer.binding.FragmentDataBindingComponent
 import com.example.spaceexplorer.databinding.FragmentEditorsPicksBinding
 import com.example.spaceexplorer.di.util.Injectable
+import com.example.spaceexplorer.ui.common.RetryCallback
 import com.example.spaceexplorer.util.autoCleared
 import com.example.spaceexplorer.viewmodels.EditorsPickViewModel
 import kotlinx.android.synthetic.main.fragment_favourite.*
@@ -44,8 +43,6 @@ class EditorsPicksFragment : Fragment(), Injectable {
         viewModelProviderFactory
     }
 
-    var scrollListener by autoCleared<RecyclerView.OnScrollListener>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,30 +62,28 @@ class EditorsPicksFragment : Fragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initDataBindingLayout()
         initAdapter()
         observeLiveData()
     }
 
     private fun observeLiveData() {
 
-        //working
-//        editorsPickViewModel._editorsPickLiveData.observe(viewLifecycleOwner, Observer {
-//            mAdapter.submitList(it.data)
-//        })
-
         editorsPickViewModel.editorsPickPhotosLiveData.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it.data)
         })
 
-        //        editorsPickViewModel.getEditorsPicks()
+    }
 
-//        editorsPickViewModel.getEditorsPicks().observe(viewLifecycleOwner, Observer {
-//            mAdapter.submitList(it.data)
-//        })
+    private fun initDataBindingLayout() {
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.editorsPickPhotos = editorsPickViewModel.editorsPickPhotosLiveData
 
-//        editorsPickViewModel._editorsPickLiveData.observe(viewLifecycleOwner, Observer {
-//            mAdapter.submitList(it.data)
-//        })
+        binding.retryCallback = object : RetryCallback {
+            override fun retry() {
+                editorsPickViewModel.refresh()
+            }
+        }
 
     }
 
@@ -104,30 +99,6 @@ class EditorsPicksFragment : Fragment(), Injectable {
             )
         }
 
-        scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                val lastPosition = layoutManager.findLastVisibleItemPosition()
-                if (lastPosition == mAdapter.itemCount - 1) {
-                    editorsPickViewModel.loadNextPage()
-                }
-            }
-        }
-
-        binding.editorsPickList.addOnScrollListener(scrollListener)
-
-//        listViewModel.getLoadMoreStatus().observe(viewLifecycleOwner, Observer { loadingMore ->
-//            if (loadingMore == null) {
-//                binding.loadingMore = false
-//            } else {
-//                binding.loadingMore = loadingMore.isRunning
-//                val error = loadingMore.errorMessageIfNotHandled
-//                if (error != null) {
-//                    Snackbar.make(binding.loadMoreBar, error, Snackbar.LENGTH_LONG).show()
-//                }
-//            }
-//        })
-
         binding.editorsPickList.adapter = mAdapter
     }
 
@@ -137,18 +108,6 @@ class EditorsPicksFragment : Fragment(), Injectable {
         selection_top_app_bar.setNavigationOnClickListener {
             drawerLayout.openDrawer(Gravity.LEFT)
         }
-
-//        navigation_view_fragment_favourite.setNavigationItemSelectedListener { menuItem ->
-//            // Handle menu item selected
-//            menuItem.isChecked = true
-//            drawerLayout.closeDrawer(Gravity.LEFT)
-//            if (menuItem.itemId == R.id.logout) {
-//                findNavController().navigate(
-//                    FavouriteFragmentDirections.actionFavouriteFragmentToLoginFragment()
-//                )
-//            }
-//            true
-//        }
     }
 
 }
