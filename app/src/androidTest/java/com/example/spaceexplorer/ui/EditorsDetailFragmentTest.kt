@@ -146,14 +146,18 @@ class EditorsDetailFragmentTest {
 
     @Test
     fun likeButtonClicked() {
-        onView(withId(R.id.like_border)).perform(click())
+
+        //this is to imitate what happens with the data when the user clicks the like border...
+
+        val editorPickItem = DataFactory.createEditorPickPhotoFavourite()
+        editorPickPhotoLiveData.postValue(Resource.success(editorPickItem))
 
         //check that filled like is displayed
-        onView(withId(R.id.like_filled))
+        onView(withId(R.id.favourite_filled))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
 
         //check that border like is not displayed
-        onView(withId(R.id.like_filled))
+        onView(withId(R.id.favourite_border))
             .check(ViewAssertions.matches(not(ViewMatchers.isDisplayed())))
     }
 

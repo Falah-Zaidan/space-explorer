@@ -32,14 +32,14 @@ class DataFactory {
         }
 
         fun makeEditorsPickList(count: Int): List<EditorsPickPhoto> {
-            val simpleItems = mutableListOf<EditorsPickPhoto>()
+            val editorsPickPhotos = mutableListOf<EditorsPickPhoto>()
             repeat(count) {
-                simpleItems.add(
+                editorsPickPhotos.add(
                     createEditorPickPhoto()
                 )
             }
 
-            return simpleItems
+            return editorsPickPhotos
         }
 
         fun randomUuid(): String {
@@ -85,6 +85,20 @@ class DataFactory {
                 randomUuid(),
                 randomUuid()
             )
+        }
+
+        fun createEditorPickPhotoFavourite(): EditorsPickPhoto {
+            val editorsPickPhoto = EditorsPickPhoto(
+                randomUuid(),
+                randomUuid(),
+                randomUuid(),
+                randomUuid(),
+                randomUuid()
+            )
+
+            editorsPickPhoto.favourite = true
+
+            return editorsPickPhoto
         }
 
     }
