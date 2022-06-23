@@ -40,34 +40,6 @@
             app:layout_constraintTop_toBottomOf="@+id/profile_image"
             app:visibleGone="@{user.equals(comment.author_name)}" />
 
-        <ImageView
-            android:id="@+id/like_filled"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{() -> commentClickListener.clickUnlikedComment()}"
-            android:src="@drawable/ic_baseline_favorite_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.576"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317"
-            app:visibleGone="@{favourite}" />
-
-        <ImageView
-            android:id="@+id/like_border"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{() -> commentClickListener.clickLikedComment()}"
-            android:src="@drawable/ic_baseline_favorite_border_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.576"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.317"
-            app:visibleGone="@{!favourite}" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="40dp"
