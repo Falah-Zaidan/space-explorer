@@ -82,10 +82,13 @@
             app:argType="string" />
         <argument
             android:name="editorsPickPhotoId"
-            app:argType="long" />
+            app:argType="string" />
         <action
             android:id="@+id/action_commentFragment_to_editorsPicksFragment"
             app:destination="@id/editorsPicksFragment" />
+        <argument
+            android:name="callingFragmentType"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/createCommentFragment"
@@ -102,6 +105,12 @@
             app:argType="long" />
         <argument
             android:name="apodDate"
+            app:argType="string" />
+        <argument
+            android:name="callingFragmentType"
+            app:argType="string" />
+        <argument
+            android:name="editorsPickPhotoId"
             app:argType="string" />
     </fragment>
     <fragment
@@ -199,5 +208,8 @@
         <action
             android:id="@+id/action_selectionDetailFragment_to_editorsPicksFragment"
             app:destination="@id/editorsPicksFragment" />
+        <argument
+            android:name="photoId"
+            app:argType="string" />
     </fragment>
 </navigation>

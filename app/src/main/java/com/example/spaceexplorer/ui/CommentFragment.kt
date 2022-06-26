@@ -22,7 +22,7 @@ import com.example.spaceexplorer.databinding.FragmentCommentsBinding
 import com.example.spaceexplorer.di.util.Injectable
 import com.example.spaceexplorer.util.Constants
 import com.example.spaceexplorer.util.autoCleared
-import com.example.spaceexplorer.viewmodels.ListViewModel
+import com.example.spaceexplorer.viewmodels.CommentViewModel
 import kotlinx.android.synthetic.main.comments_toolbar.*
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ class CommentFragment : Fragment(), Injectable {
     @Inject
     lateinit var appExecutors: AppExecutors
 
-    val listViewModel: ListViewModel by viewModels {
+    val commentViewModel: CommentViewModel by viewModels {
         viewModelProviderFactory
     }
 
@@ -73,8 +73,15 @@ class CommentFragment : Fragment(), Injectable {
     }
 
     private fun initDataBindingLayout() {
-        binding.apodWithComments = listViewModel.getAPODWithComments(args.apodId)
-        binding.lifecycleOwner = viewLifecycleOwner
+
+        //TODO: sort this out properly
+//        binding.lifecycleOwner = viewLifecycleOwner
+
+//        if (args.callingFragmentType.equals("APODFragment")) {
+//            binding.apodWithComments = commentViewModel.getAPODWithComments(args.apodId)
+//        } else if (args.callingFragmentType.equals("SelectionDetailFragment")) {
+//            binding.apodWithComments = commentViewModel.getAPODWithComments(args.apodId)
+//        }
 
     }
 
@@ -85,7 +92,9 @@ class CommentFragment : Fragment(), Injectable {
             databindingComponent,
             Constants.getCurrentLoggedInUsername()!!
         ) {
-            listViewModel.deleteComment(it)
+            //TODO: set-up delete comment functionality properly
+//            listViewModel.deleteComment(it)
+//            commentViewModel.deleteComment(it)
         }
 
         val layoutManager = LinearLayoutManager(context)
@@ -96,12 +105,26 @@ class CommentFragment : Fragment(), Injectable {
 
     private fun observeLiveData() {
 
-        listViewModel.getAPODWithComments(args.apodId)
-            .observe(viewLifecycleOwner, Observer {
-                if (it.data != null) {
-                    commentAdapter.submitList(it.data.comments)
-                }
-            })
+        //observe the right LiveData based on the SelectFragmentType
+        if (args.callingFragmentType.equals("APODFragment")) {
+            commentViewModel.getAPODWithComments(args.apodId)
+                .observe(viewLifecycleOwner, Observer {
+                    if (it.data != null) {
+                        commentAdapter.submitList(it.data.comments)
+                    }
+                })
+        } else if (args.callingFragmentType.equals("SelectionDetailFragment") && !args.editorsPickPhotoId.equals(
+                ""
+            )
+        ) {
+            commentViewModel.getSelectionDetailWithComments(args.editorsPickPhotoId)
+                .observe(viewLifecycleOwner, Observer {
+                    if (it.data != null) {
+                        commentAdapter.submitList(it.data.comments)
+                    }
+                })
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,15 +137,21 @@ class CommentFragment : Fragment(), Injectable {
                 val apodDateArg = args.apodDate
                 val editorsPickArg = args.editorsPickPhotoId
 
-                if (marsRoverArg.toInt() != -1 && apodArg.toInt() == -1) {
+                if (marsRoverArg.toInt() != -1 && apodArg.toInt() == -1 && editorsPickArg.equals("")) {
 //                    findNavController().navigate(
 //                        CommentFragmentDirections.actionCommentFragmentToDetailFragment(marsRoverArg)
 //                    )
-                } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() != -1) {
+                } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() != -1 && editorsPickArg.equals(
+                        ""
+                    )
+                ) {
                     findNavController().navigate(
                         CommentFragmentDirections.actionCommentFragmentToApodFragment(apodDateArg)
                     )
-                } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() == -1 && editorsPickArg.toInt() == -1) {
+                } else if (marsRoverArg.toInt() == -1 && apodArg.toInt() == -1 && editorsPickArg.equals(
+                        ""
+                    )
+                ) {
                     findNavController().navigate(
                         CommentFragmentDirections.actionCommentFragmentToEditorsPicksFragment()
                     )
@@ -163,9 +192,11 @@ class CommentFragment : Fragment(), Injectable {
                     // Handle favorite icon press
                     findNavController().navigate(
                         CommentFragmentDirections.actionCommentFragmentToCreateCommentFragment(
-                            args.apodId,
-                            args.marsRoverPhotoId,
-                            args.apodDate
+                            apodId = args.apodId,
+                            marsRoverPhotoId = args.marsRoverPhotoId,
+                            apodDate = args.apodDate,
+                            callingFragmentType = args.callingFragmentType,
+                            editorsPickPhotoId = args.editorsPickPhotoId
                         )
                     )
                     true

@@ -9,6 +9,7 @@ import com.example.spaceexplorer.cache.dao.PhotoDao
 import com.example.spaceexplorer.cache.db.NASADatabase
 import com.example.spaceexplorer.cache.model.*
 import com.example.spaceexplorer.model.APODPhoto
+import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.model.MarsRoverPhoto
 import com.example.spaceexplorer.remote.DjangoService
 import com.example.spaceexplorer.remote.PhotoService
@@ -347,14 +348,15 @@ class PhotoRepository @Inject constructor(
         item.results.forEach {
             comments.add(
                 Comment(
-                    it.user_creator_id,
-                    it.apod_id,
-                    it.mars_rover_id,
-                    it.comment_body,
-                    DateUtil.formatDate(it.date_updated),
-                    it.comment_likes,
-                    it.authorName,
-                    it.author_profile_pic
+                    userCreatorId = it.user_creator_id,
+                    apodId = it.apod_id,
+                    marsRoverPhotoId = it.mars_rover_id,
+                    editorsPickPhotoId = it.editor_photo_id,
+                    comment = it.comment_body,
+                    dateTime = DateUtil.formatDate(it.date_updated),
+                    likes = it.comment_likes,
+                    author_name = it.authorName,
+                    profile_picture = it.author_profile_pic
                 )
             )
         }
@@ -371,6 +373,14 @@ class PhotoRepository @Inject constructor(
         saveAPODToDjangoService(apod)
 
         //save the comment to the back-end
+        saveCommentToDjangoService(comment)
+
+    }
+
+    fun saveEditorPickComment(comment: Comment, editorsPickPhoto: EditorsPickPhoto) {
+
+        saveEditorsPickPhotoToDjangoService(editorsPickPhoto)
+
         saveCommentToDjangoService(comment)
 
     }
@@ -405,8 +415,43 @@ class PhotoRepository @Inject constructor(
         }
     }
 
+    fun saveEditorsPickPhotoToDjangoService(editorsPickPhoto: EditorsPickPhoto) {
+
+        if (!checkEditorsPickPhotoExistsRemotely(editorsPickPhoto)) {
+            appExecutors.networkIO().execute {
+                val response = djangoService.saveEditorsPickPhoto(
+                    authToken = Constants.adminToken,
+                    photo_id = editorsPickPhoto.photoId,
+                    date = editorsPickPhoto.date,
+                    explanation = editorsPickPhoto.explanation,
+                    url = editorsPickPhoto.url
+                )
+
+                response.enqueue(object :
+                    Callback<DjangoEditorsPickPhotoApiResponse.EditorPickPhoto> {
+
+                    override fun onResponse(
+                        call: Call<DjangoEditorsPickPhotoApiResponse.EditorPickPhoto>,
+                        response: Response<DjangoEditorsPickPhotoApiResponse.EditorPickPhoto>
+                    ) {
+                    }
+
+                    override fun onFailure(
+                        call: Call<DjangoEditorsPickPhotoApiResponse.EditorPickPhoto>,
+                        t: Throwable
+                    ) {
+                    }
+                })
+            }
+        }
+    }
+
     private fun checkAPODExistsRemotely(apod: APOD): Boolean {
         return apod.fetchedFromDjangoService
+    }
+
+    private fun checkEditorsPickPhotoExistsRemotely(editorsPickPhoto: EditorsPickPhoto): Boolean {
+        return editorsPickPhoto.fetchedFromDjangoService
     }
 
     fun deleteComment(comment: Comment) {

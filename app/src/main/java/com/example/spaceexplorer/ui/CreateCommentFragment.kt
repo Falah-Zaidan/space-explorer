@@ -23,8 +23,11 @@ import com.example.spaceexplorer.cache.model.Comment
 import com.example.spaceexplorer.cache.model.User
 import com.example.spaceexplorer.databinding.FragmentCreateCommentBinding
 import com.example.spaceexplorer.di.util.Injectable
+import com.example.spaceexplorer.model.EditorsPickPhoto
 import com.example.spaceexplorer.ui.common.CommentClickListener
 import com.example.spaceexplorer.util.autoCleared
+import com.example.spaceexplorer.viewmodels.CommentViewModel
+import com.example.spaceexplorer.viewmodels.EditorsPickViewModel
 import com.example.spaceexplorer.viewmodels.ListViewModel
 import com.example.spaceexplorer.viewmodels.LoginViewModel
 import javax.inject.Inject
@@ -42,7 +45,15 @@ class CreateCommentFragment : Fragment(), Injectable {
         viewModelProviderFactory
     }
 
+    val editorsPickViewModel: EditorsPickViewModel by viewModels {
+        viewModelProviderFactory
+    }
+
     val loginViewModel: LoginViewModel by viewModels {
+        viewModelProviderFactory
+    }
+
+    val commentViewModel: CommentViewModel by viewModels {
         viewModelProviderFactory
     }
 
@@ -53,6 +64,7 @@ class CreateCommentFragment : Fragment(), Injectable {
     val args: CreateCommentFragmentArgs by navArgs()
 
     var currentAPOD: APOD? = null
+    var currentEditorsPickPhoto: EditorsPickPhoto? = null
     var user: User? = null
 
     override fun onCreateView(
@@ -103,40 +115,25 @@ class CreateCommentFragment : Fragment(), Injectable {
                     return
                 }
 
+
                 //save the comment, to Back-end (and then through SSOT, be able to retrieve it from DB when data is fetched)
 
-                val apod = APOD(
-                    args.apodId,
-                    currentAPOD!!.date,
-                    currentAPOD!!.explanation,
-                    currentAPOD!!.hdURL
-                )
-
-                apod.fetchedFromDjangoService = currentAPOD!!.fetchedFromDjangoService
-
-                //get the current APOD through the ViewModel (this will be the one stored in DB)
-                if (user != null) {
-                    listViewModel.insertAPODComment(
-                        apod,
-                        Comment(
-                            userCreatorId = nextInt(), //userCreatorId
-                            apodId = args.apodId, //apodId
-                            marsRoverPhotoId = args.marsRoverPhotoId, //marsRoverPhotoID
-                            comment = inputText, //comment
-                            dateTime = nextInt().toString(), //datetime
-                            likes = nextInt(), //likes
-                            author_name = user!!.name,
-                            profile_picture = user!!.profilePictureUrl
-                        )
-                    )
+                //Depending on where you navigated from, save the APODComment or the EditorsPickPhoto...
+                if (args.callingFragmentType.equals("APODFragment")) {
+                    saveApodComment(inputText)
+                } else if (args.callingFragmentType.equals("EditorsPickFragment")) {
+                    saveEditorsPickPhotoComment(inputText)
                 }
+//                saveMarsRoverPhotoComment()
 
+                //navigate back to the CommentFragment (with the correct args)
                 findNavController().navigate(
                     CreateCommentFragmentDirections.actionCreateCommentFragmentToCommentFragment(
-                        args.apodId,
-                        args.marsRoverPhotoId,
-                        args.apodDate,
-                        -1
+                        apodId = args.apodId,
+                        marsRoverPhotoId = args.marsRoverPhotoId,
+                        apodDate = args.apodDate,
+                        editorsPickPhotoId = "",
+                        callingFragmentType = args.callingFragmentType
                     )
                 )
             }
@@ -158,6 +155,85 @@ class CreateCommentFragment : Fragment(), Injectable {
             }
 
         }
+
+    }
+
+    private fun saveApodComment(inputText: String) {
+        val apod = APOD(
+            args.apodId,
+            currentAPOD!!.date,
+            currentAPOD!!.explanation,
+            currentAPOD!!.hdURL
+        )
+
+        apod.fetchedFromDjangoService = currentAPOD!!.fetchedFromDjangoService
+
+        //get the current APOD through the ViewModel (this will be the one stored in DB)
+        if (user != null) {
+            commentViewModel.insertAPODComment(
+                Comment(
+                    userCreatorId = nextInt(), //userCreatorId
+                    apodId = args.apodId, //apodId
+                    marsRoverPhotoId = args.marsRoverPhotoId, //marsRoverPhotoID
+                    comment = inputText, //comment
+                    dateTime = nextInt().toString(), //datetime
+                    likes = nextInt(), //likes
+                    author_name = user!!.name,
+                    profile_picture = user!!.profilePictureUrl,
+                    editorsPickPhotoId = args.editorsPickPhotoId //this should be empty ("") if we navigated from APODFragment
+                ),
+                apod
+            )
+//            listViewModel.insertAPODComment(
+//                apod,
+//                Comment(
+//                    userCreatorId = nextInt(), //userCreatorId
+//                    apodId = args.apodId, //apodId
+//                    marsRoverPhotoId = args.marsRoverPhotoId, //marsRoverPhotoID
+//                    comment = inputText, //comment
+//                    dateTime = nextInt().toString(), //datetime
+//                    likes = nextInt(), //likes
+//                    author_name = user!!.name,
+//                    profile_picture = user!!.profilePictureUrl,
+//                    editorsPickPhotoId = ""
+//                )
+//            )
+        }
+
+    }
+
+    private fun saveEditorsPickPhotoComment(inputText: String) {
+        //Fill the data based on the editorPhoto that has the id that has been passed in as an arg
+
+        val editorsPickPhoto = EditorsPickPhoto(
+            photoId = args.editorsPickPhotoId,
+            name = currentEditorsPickPhoto!!.name,
+            date = currentEditorsPickPhoto!!.date,
+            explanation = currentEditorsPickPhoto!!.explanation,
+            url = currentEditorsPickPhoto!!.url
+        )
+
+//        editorPickPhoto.fetchedFromDjangoService = editorPickPhoto!!.fetchedFromDjangoService
+
+        if (user != null) {
+            commentViewModel.insertEditorsPickPhotoComment(
+                Comment(
+                    userCreatorId = nextInt(), //userCreatorId
+                    apodId = args.apodId, //apodId -- this should be -1 if we navigated from SelectionFragment
+                    marsRoverPhotoId = args.marsRoverPhotoId, //marsRoverPhotoID -- this should also be -1
+                    comment = inputText, //comment
+                    dateTime = nextInt().toString(), //datetime
+                    likes = nextInt(), //likes
+                    author_name = user!!.name,
+                    profile_picture = user!!.profilePictureUrl,
+                    editorsPickPhotoId = args.editorsPickPhotoId
+                ),
+                editorsPickPhoto
+            )
+        }
+    }
+
+    private fun saveMarsRoverPhotoComment() {
 
     }
 
@@ -191,5 +267,14 @@ class CreateCommentFragment : Fragment(), Injectable {
                 currentAPOD = it.data
             }
         })
+
+        //observe editorPickPhoto LiveData
+        editorsPickViewModel.editorPickPhotoLiveData.observe(viewLifecycleOwner, Observer {
+            if (it.data != null) {
+                currentEditorsPickPhoto = it.data
+            }
+        })
+
+        //observe MarsRoverPhoto LiveData
     }
 }

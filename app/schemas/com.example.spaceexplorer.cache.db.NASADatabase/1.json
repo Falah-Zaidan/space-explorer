@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "748bd1d1ba59a6b88944225de321741b",
+    "identityHash": "e3d5ab39e537eaa1cfdc41de039c7cc8",
     "entities": [
       {
         "tableName": "marsRoverPhotos",
@@ -189,7 +189,7 @@
       },
       {
         "tableName": "comment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`favourite` INTEGER, `userCreatorId` INTEGER NOT NULL, `apodId` INTEGER NOT NULL, `marsRoverPhotoId` INTEGER NOT NULL, `comment` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `likes` INTEGER NOT NULL, `author_name` TEXT NOT NULL, `profile_picture` TEXT NOT NULL, PRIMARY KEY(`userCreatorId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`favourite` INTEGER, `userCreatorId` INTEGER NOT NULL, `apodId` INTEGER NOT NULL, `marsRoverPhotoId` INTEGER NOT NULL, `editorsPickPhotoId` TEXT NOT NULL, `comment` TEXT NOT NULL, `dateTime` TEXT NOT NULL, `likes` INTEGER NOT NULL, `author_name` TEXT NOT NULL, `profile_picture` TEXT NOT NULL, PRIMARY KEY(`userCreatorId`))",
         "fields": [
           {
             "fieldPath": "favourite",
@@ -213,6 +213,12 @@
             "fieldPath": "marsRoverPhotoId",
             "columnName": "marsRoverPhotoId",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "editorsPickPhotoId",
+            "columnName": "editorsPickPhotoId",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -385,11 +391,17 @@
       },
       {
         "tableName": "EditorsPickPhoto",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`favourite` INTEGER NOT NULL, `photoId` TEXT NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `explanation` TEXT NOT NULL, `url` TEXT NOT NULL, PRIMARY KEY(`photoId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`favourite` INTEGER NOT NULL, `fetchedFromDjangoService` INTEGER NOT NULL, `photoId` TEXT NOT NULL, `name` TEXT NOT NULL, `date` TEXT NOT NULL, `explanation` TEXT NOT NULL, `url` TEXT NOT NULL, PRIMARY KEY(`photoId`))",
         "fields": [
           {
             "fieldPath": "favourite",
             "columnName": "favourite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fetchedFromDjangoService",
+            "columnName": "fetchedFromDjangoService",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -437,7 +449,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '748bd1d1ba59a6b88944225de321741b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e3d5ab39e537eaa1cfdc41de039c7cc8')"
     ]
   }
 }

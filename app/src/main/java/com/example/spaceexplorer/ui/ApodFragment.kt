@@ -230,7 +230,8 @@ class ApodFragment : Fragment(), Injectable {
                         convertFromDate(currentAPOD!!.date), // this is the apodDate value converted into a long value - it's going to be unique for every APOD
                         -1,
                         currentAPOD!!.date,
-                        -1
+                        "",
+                        "APODFragment"
                     )
                 )
             }

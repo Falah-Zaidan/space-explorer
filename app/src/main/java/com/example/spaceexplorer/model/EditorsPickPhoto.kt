@@ -39,4 +39,5 @@ data class EditorsPickPhoto(
 
 ) {
     var favourite: Boolean = false
+    var fetchedFromDjangoService = false
 }

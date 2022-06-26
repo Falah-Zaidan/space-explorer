@@ -26,7 +26,7 @@ import com.google.gson.annotations.SerializedName
                 },...
 */
 
-data class DjangoEditorPickPhotoApiResponse(
+data class DjangoEditorsPickPhotoApiResponse(
     @SerializedName("count")
     @Expose
     val count: Int,
@@ -41,13 +41,17 @@ data class DjangoEditorPickPhotoApiResponse(
 
     @SerializedName("results")
     @Expose
-    val results: List<APODPhoto>
+    val results: List<EditorPickPhoto>
 
 ) {
-    data class APODPhoto(
-        @SerializedName("apod_id")
+    data class EditorPickPhoto(
+        @SerializedName("editor_photo_id")
         @Expose
-        val apod_id: Int,
+        val photoId: String,
+
+        @SerializedName("photo_name")
+        @Expose
+        val name: String,
 
         @SerializedName("date")
         @Expose
@@ -59,12 +63,7 @@ data class DjangoEditorPickPhotoApiResponse(
 
         @SerializedName("url")
         @Expose
-        val image_url: String,
-
-        //list of comments
-        @SerializedName("comments")
-        @Expose
-        val comments: List<Comment?>
+        val url: String
     )
 
     data class Comment(

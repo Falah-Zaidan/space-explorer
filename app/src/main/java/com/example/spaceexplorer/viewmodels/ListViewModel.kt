@@ -212,10 +212,6 @@ class ListViewModel @Inject constructor(
 
     }
 
-    fun getAPODWithComments(apodId: Long): LiveData<Resource<APODWithComments>> {
-        return photoRepository.getAPODComments(apodId)
-    }
-
     fun getCurrentAPOD() {
 
         viewModelScope.launch {

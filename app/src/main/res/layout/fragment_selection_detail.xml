@@ -31,113 +31,120 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.RoverImageDetailFragment">
+        android:fillViewport="true">
 
-        <include
-            android:id="@+id/selection_detail_toolbar"
-            layout="@layout/selection_detail_toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            tools:context=".ui.RoverImageDetailFragment">
 
-        <ImageView
-            android:id="@+id/selection_item_image"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:adjustViewBounds="true"
-            app:imageUrl="@{editorsPickPhoto.url}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selection_detail_toolbar"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            <include
+                android:id="@+id/selection_detail_toolbar"
+                layout="@layout/selection_detail_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/loading_state"
-            layout="@layout/loading_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:callback="@{() -> retryCallback.retry()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:resource="@{(Resource) editorsPickPhotoLiveData}" />
+            <ImageView
+                android:id="@+id/selection_item_image"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:adjustViewBounds="true"
+                app:imageUrl="@{editorsPickPhoto.url}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selection_detail_toolbar"
+                app:srcCompat="@drawable/ic_launcher_background" />
 
-        <ImageView
-            android:id="@+id/favourite_filled"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:onClick="@{() -> favouriteClickListener.clickUnfavouriteEditorsPickPhoto()}"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/ic_baseline_favorite_24"
-            app:visibleGone="@{editorsPickPhoto.favourite}" />
+            <include
+                android:id="@+id/loading_state"
+                layout="@layout/loading_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:callback="@{() -> retryCallback.retry()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:resource="@{(Resource) editorsPickPhotoLiveData}" />
 
-        <ImageView
-            android:id="@+id/favourite_border"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:onClick="@{() -> favouriteClickListener.clickFavouriteEditorsPickPhoto()}"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
-            app:layout_constraintVertical_bias="0.05"
-            app:srcCompat="@drawable/ic_baseline_favorite_border_24"
-            app:visibleGone="@{!editorsPickPhoto.favourite}" />
+            <ImageView
+                android:id="@+id/favourite_filled"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="@{() -> favouriteClickListener.clickUnfavouriteEditorsPickPhoto()}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.024"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
+                app:layout_constraintVertical_bias="0.05"
+                app:srcCompat="@drawable/ic_baseline_favorite_24"
+                app:visibleGone="@{editorsPickPhoto.favourite}" />
 
-        <!--        android:onClick="@{() -> commentClickListener.clickedCommentScreen()}"-->
+            <ImageView
+                android:id="@+id/favourite_border"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="@{() -> favouriteClickListener.clickFavouriteEditorsPickPhoto()}"
+                app:layout_constraintBottom_toTopOf="@+id/guideline4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.024"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
+                app:layout_constraintVertical_bias="0.05"
+                app:srcCompat="@drawable/ic_baseline_favorite_border_24"
+                app:visibleGone="@{!editorsPickPhoto.favourite}" />
 
-        <ImageView
-            android:id="@+id/comment_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/image_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.132"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/ic_baseline_comment_24" />
+            <!--        android:onClick="@{() -> commentClickListener.clickedCommentScreen()}"-->
 
-        <TextView
-            android:id="@+id/image_explanation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:text="@{editorsPickPhoto.explanation}"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.043"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comment_btn"
-            tools:text="lksdflaksfjlkasdfjlasjfkldsajflasd" />
+            <ImageView
+                android:id="@+id/comment_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/image_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.132"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/selection_item_image"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_baseline_comment_24" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="577dp" />
+            <TextView
+                android:id="@+id/image_explanation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="@{editorsPickPhoto.explanation}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.043"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/comment_btn"
+                tools:text="lksdflaksfjlkasdfjlasjfkldsajflasd" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="577dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

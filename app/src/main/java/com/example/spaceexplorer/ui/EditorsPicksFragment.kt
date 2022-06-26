@@ -94,7 +94,8 @@ class EditorsPicksFragment : Fragment(), Injectable {
         ) {
             findNavController().navigate(
                 EditorsPicksFragmentDirections.actionEditorsPicksFragmentToSelectionDetailFragment(
-                    it.date
+                    it.date,
+                    it.photoId
                 )
             )
         }

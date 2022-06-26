@@ -30,8 +30,12 @@ class EditorsPickViewModel @Inject constructor(
             editorsPickRepository.getEditorPickPhoto(it)
         }
 
-    fun getEditorPickPhoto(date: String) {
-        _editorPickPhotoTrigger.value = date
+//    fun getEditorPickPhoto(date: String) {
+//        _editorPickPhotoTrigger.value = date
+//    }
+
+    fun getEditorPickPhoto(photoId: String) {
+        _editorPickPhotoTrigger.value = photoId
     }
 
     fun refreshEditorPickPhotoSingle() {

@@ -73,7 +73,6 @@ class SelectionDetailFragment : Fragment(), Injectable {
 
         initDataBindingLayout()
         observeLiveData()
-        initViews()
         initClickListeners()
         initialiseTopAppBar()
     }
@@ -104,6 +103,14 @@ class SelectionDetailFragment : Fragment(), Injectable {
 //                )
 //            }
 //        }
+
+        binding.commentBtn.setOnClickListener {
+            findNavController().navigate(
+                SelectionDetailFragmentDirections.actionSelectionDetailFragmentToCommentFragment(
+                    -1, -1, "", editorsPickPhoto.photoId, "SelectionDetailFragment"
+                )
+            )
+        }
 
         binding.favouriteClickListener = object : ClickFavourite {
             override fun clickFavouriteRover() {
@@ -260,7 +267,12 @@ class SelectionDetailFragment : Fragment(), Injectable {
     }
 
     private fun observeLiveData() {
-        editorsPickViewModel.getEditorPickPhoto(args.date)
+//        editorsPickViewModel.getEditorPickPhoto(args.date)
+
+        //using photoId
+        editorsPickViewModel.getEditorPickPhoto(args.photoId)
+//        Log.d("PhotoIdArg: ", args.photoId.toString())
+
         editorsPickViewModel.editorPickPhotoLiveData.observe(viewLifecycleOwner, Observer {
             val editorPickPhoto = it.data
             if (editorPickPhoto != null) {
@@ -270,16 +282,5 @@ class SelectionDetailFragment : Fragment(), Injectable {
             }
         })
     }
-
-    private fun initViews() {
-        binding.commentBtn.setOnClickListener {
-            findNavController().navigate(
-                SelectionDetailFragmentDirections.actionSelectionDetailFragmentToCommentFragment(
-                    -1, -1, "", -1
-                )
-            )
-        }
-    }
-
 
 }

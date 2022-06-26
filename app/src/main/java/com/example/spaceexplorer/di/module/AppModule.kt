@@ -47,6 +47,11 @@ abstract class AppModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(CommentViewModel::class)
+    abstract fun bindCommentViewModel(commentViewModel: CommentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(EditorsPickViewModel::class)
     abstract fun bindEditorsPickViewModel(editorsPickViewModel: EditorsPickViewModel): ViewModel
 

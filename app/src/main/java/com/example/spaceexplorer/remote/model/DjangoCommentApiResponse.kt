@@ -61,6 +61,14 @@ data class DjangoCommentApiResponse(
         @Expose
         val authorName: String,
 
+        @SerializedName("author_profile_pic")
+        @Expose
+        val author_profile_pic: String,
+
+        @SerializedName("user_creator_id")
+        @Expose
+        val user_creator_id: Int,
+
         @SerializedName("apod_id")
         @Expose
         val apod_id: Long,
@@ -69,12 +77,8 @@ data class DjangoCommentApiResponse(
         @Expose
         val mars_rover_id: Long,
 
-        @SerializedName("author_profile_pic")
+        @SerializedName("editor_photo_id")
         @Expose
-        val author_profile_pic: String,
-
-        @SerializedName("user_creator_id")
-        @Expose
-        val user_creator_id: Int
+        val editor_photo_id: String
     )
 }

@@ -82,6 +82,16 @@ interface DjangoService {
         @Field("url") url: String
     ): Call<DjangoAPODPhotoApiResponse.APODPhoto>
 
+    @FormUrlEncoded
+    @POST("api/editorpickphoto/create")
+    fun saveEditorsPickPhoto(
+        @Header("Authorization") authToken: String,
+        @Field("photo_id") photo_id: String,
+        @Field("date") date: String,
+        @Field("explanation") explanation: String,
+        @Field("url") url: String
+    ): Call<DjangoEditorsPickPhotoApiResponse.EditorPickPhoto>
+
     // == comment related operations == //
 
     @FormUrlEncoded
@@ -120,6 +130,13 @@ interface DjangoService {
         @Query("page") page: Int
     ): LiveData<ApiResponse<DjangoCommentApiResponse>>
 
+    @GET("/api/comments/editorpickphotolist/{selection_detail_id}")
+    fun getSelectionDetailComments(
+        @Header("Authorization") authToken: String,
+        @Path("selection_detail_id") selection_detail_id: String,
+        @Query("page") page: Int
+    ): LiveData<ApiResponse<DjangoCommentApiResponse>>
+
 //    @GET("/api/editorpickphoto/list")
 //    suspend fun getEditorPickPhotos(
 //        @Header("Authorization") authToken: String
@@ -130,9 +147,15 @@ interface DjangoService {
         @Header("Authorization") authToken: String
     ): LiveData<ApiResponse<DjangoEditorsPickResponse>>
 
-    @GET("/api/editorpickphoto/{editor_pick_photo_date}")
+//    @GET("/api/editorpickphoto/{editor_pick_photo_date}")
+//    fun getEditorPickPhotoByDate(
+//        @Header("Authorization") authToken: String,
+//        @Path("editor_pick_photo_date") editor_pick_photo_date: String
+//    ): LiveData<ApiResponse<DjangoEditorPickPhotoApiResponseSingle>>
+
+    @GET("/api/editorpickphoto/{editor_pick_photo_id}")
     fun getEditorPickPhotoByDate(
         @Header("Authorization") authToken: String,
-        @Path("editor_pick_photo_date") editor_pick_photo_date: String
+        @Path("editor_pick_photo_id") editor_pick_photo_id: String
     ): LiveData<ApiResponse<DjangoEditorPickPhotoApiResponseSingle>>
 }

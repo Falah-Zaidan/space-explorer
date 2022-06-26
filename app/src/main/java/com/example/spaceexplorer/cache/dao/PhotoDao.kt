@@ -16,8 +16,11 @@ interface PhotoDao {
     @Query("SELECT * FROM editorspickphoto")
     fun getEditorPickPhotos(): LiveData<List<EditorsPickPhoto>>
 
-    @Query("SELECT * FROM editorspickphoto WHERE editorspickphoto.date == :date")
-    fun getEditorPickPhoto(date: String): LiveData<EditorsPickPhoto>
+//    @Query("SELECT * FROM editorspickphoto WHERE editorspickphoto.date == :date")
+//    fun getEditorPickPhoto(date: String): LiveData<EditorsPickPhoto>
+
+    @Query("SELECT * FROM editorspickphoto WHERE editorspickphoto.photoId == :photoId")
+    fun getEditorPickPhoto(photoId: String): LiveData<EditorsPickPhoto>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertEditorPickPhotos(editorPickPhotos: List<EditorsPickPhoto>)
@@ -82,6 +85,10 @@ interface PhotoDao {
     @Query("DELETE FROM comment WHERE comment.userCreatorId = :userCreatorId")
     fun deleteComment(userCreatorId: Int)
 
+    /*
+    * Comments related operations
+    * */
+
     @Transaction
     @Query("SELECT * FROM APOD WHERE id = :apodId ORDER BY id ASC")
     fun getAPODWithComments(apodId: Long): LiveData<APODWithComments>
@@ -89,6 +96,10 @@ interface PhotoDao {
     @Transaction
     @Query("SELECT * FROM marsRoverPhotos WHERE id = :marsRoverPhotoId ORDER BY id ASC")
     fun getMarsRoverPhotoWithComments(marsRoverPhotoId: Int): LiveData<MarsRoverPhotoWithComments>
+
+    @Transaction
+    @Query("SELECT * FROM editorspickphoto WHERE photoId = :selectionDetailId ORDER BY photoId ASC")
+    fun getSelectionDetailWithComments(selectionDetailId: Int): LiveData<SelectionDetailWithComments>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAPOD(apod: APOD)

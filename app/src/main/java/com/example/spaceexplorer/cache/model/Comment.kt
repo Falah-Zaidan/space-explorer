@@ -10,6 +10,7 @@ data class Comment(
     val userCreatorId: Int,
     val apodId: Long,
     val marsRoverPhotoId: Long,
+    val editorsPickPhotoId: String,
 
     val comment: String,
     val dateTime: String,
